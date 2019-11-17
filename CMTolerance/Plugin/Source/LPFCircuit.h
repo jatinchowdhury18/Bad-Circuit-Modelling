@@ -6,7 +6,14 @@
 class LPFCircuit
 {
 public:
-    LPFCircuit() {}
+    LPFCircuit() :
+        R1 (33800.0f),
+        R2 (33800.0f),
+        C1 ((float) 4.7e-9),
+        C2 ((float) 4.7e-9),
+        R3 (1000.0f),
+        R4 (1500.0f)
+    {}
 
     void setTolerance (int tol)
     {
@@ -42,12 +49,12 @@ public:
     }
 
 private:
-    Element R1 = Element (33800.0f);
-    Element R2 = Element (33800.0f);
-    Element C1 = Element ((float) 4.7e-9);
-    Element C2 = Element ((float) 4.7e-9);
-    Element R3 = Element (1000.0f);
-    Element R4 = Element (1500.0f);
+    Element R1; 
+    Element R2; 
+    Element C1; 
+    Element C2; 
+    Element R3; 
+    Element R4; 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LPFCircuit)
 };

@@ -10,6 +10,7 @@ public:
 
     void updateCurve();
     float getFreqForX (float xPos);
+    float getXForFreq (float freq);
 
     void paint (Graphics& g) override;
     void resized() override;

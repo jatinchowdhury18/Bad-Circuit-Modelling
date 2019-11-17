@@ -7,7 +7,7 @@ PluginEditor<Processor>::PluginEditor (Processor& p) :
     freqViz (p.getLPF (0), p.getLPF (1)),
     knobs (p, p.getVTS(), [this, &p] { p.updateParams(); freqViz.updateCurve(); })
 {
-    setSize (500, 400);
+    setSize (400, 400);
 
     addAndMakeVisible (freqViz);
     addAndMakeVisible (knobs);
