@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "LPF.h"
+#include "LPFCircuit.h"
 
 //==============================================================================
 /**
@@ -60,12 +61,15 @@ public:
     static AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
     LPF& getLPF (int ch) { return lpf[ch]; }
+    void updateParams();
 
 private:
     float* freqParam = nullptr;
     float* qParam = nullptr;
+    float* tolParam = nullptr;
 
     LPF lpf [2];
+    LPFCircuit lpfCircuit[2];
 
     AudioProcessorValueTreeState vts;
 

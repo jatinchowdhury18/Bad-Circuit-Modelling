@@ -5,7 +5,7 @@ PluginEditor<Processor>::PluginEditor (Processor& p) :
     AudioProcessorEditor (&p),
     processor (p),
     freqViz (p.getLPF (0), p.getLPF (1)),
-    knobs (p, p.getVTS(), [this] { freqViz.updateCurve(); })
+    knobs (p, p.getVTS(), [this, &p] { p.updateParams(); freqViz.updateCurve(); })
 {
     setSize (500, 400);
 

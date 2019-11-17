@@ -11,6 +11,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "PluginEditor.cpp"
+#include "Element.h"
 
 //==============================================================================
 CmtoleranceAudioProcessor::CmtoleranceAudioProcessor()
@@ -28,6 +29,7 @@ CmtoleranceAudioProcessor::CmtoleranceAudioProcessor()
 {
     freqParam = vts.getRawParameterValue ("cutoff_Hz");
     qParam = vts.getRawParameterValue ("filtq_");
+    tolParam = vts.getRawParameterValue ("tol");
 }
 
 CmtoleranceAudioProcessor::~CmtoleranceAudioProcessor()
@@ -46,6 +48,7 @@ AudioProcessorValueTreeState::ParameterLayout CmtoleranceAudioProcessor::createP
 
     params.push_back (std::make_unique<AudioParameterFloat> ("cutoff_Hz", "Cutoff", freqRange, 1000.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("filtq_", "Q", qRange, 0.707f));
+    params.push_back (std::make_unique<AudioParameterChoice> ("tol", "Tolerance", Element::getChoices(), 0));
 
     return { params.begin(), params.end() };
 }
@@ -147,15 +150,27 @@ bool CmtoleranceAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 }
 #endif
 
+void CmtoleranceAudioProcessor::updateParams()
+{
+    for (int ch = 0; ch < 2; ++ch)
+    {
+        lpfCircuit[ch].setTolerance ((int) *tolParam);
+        lpfCircuit[ch].setFreq (*freqParam);
+        lpfCircuit[ch].setQ (*qParam);
+
+        lpf[ch].setFreq (lpfCircuit[ch].getActualFreq());
+        lpf[ch].setQ (lpfCircuit[ch].getActualQ());
+    }
+}
+
 void CmtoleranceAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     
+    updateParams();
+
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
-        lpf[ch].setFreq (*freqParam);
-        lpf[ch].setQ (*qParam);
-
         lpf[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     }
 }

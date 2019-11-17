@@ -17,6 +17,8 @@
       <FILE id="Fwhwgz" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
     </GROUP>
     <GROUP id="{33B404A6-A28F-4C8E-AAA2-047DC772B704}" name="Source">
+      <FILE id="v7w79U" name="Element.h" compile="0" resource="0" file="Source/Element.h"/>
+      <FILE id="XyhucP" name="LPFCircuit.h" compile="0" resource="0" file="Source/LPFCircuit.h"/>
       <FILE id="VdUzOH" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="IWocNN" name="PluginProcessor.h" compile="0" resource="0"

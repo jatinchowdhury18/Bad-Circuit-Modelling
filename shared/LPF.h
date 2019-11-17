@@ -15,7 +15,7 @@ public:
     void setFreq (float freq)
     {
         if (freq != fc.getTargetValue())
-            fc.setTargetValue (freq);
+            fc.setTargetValue (jmin (freq, fs / 2.0f - 50.0f));
     }
 
     void setQ (float newQ)
