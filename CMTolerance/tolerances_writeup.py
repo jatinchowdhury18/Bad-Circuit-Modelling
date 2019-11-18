@@ -32,7 +32,7 @@ from scipy.stats import norm
 #
 # When I buy an LA-2A, I an buying a unique piece of hardware, that sounds
 # unlike anything else in the world. This uniqueness, particularly when
-# compounded across the many effects used in a production can give my
+# compounded across the many effects used in a production, can give my
 # sounds an interesting character that is specific to my studio. On the
 # other hand if I use a software model of an LA-2A, the version on my
 # computer will sound exactly the same as everyone else's. For some mixing
@@ -58,7 +58,7 @@ from scipy.stats import norm
 # most fundamental causes of variations in analog circuits. The basic idea
 # is that no electrical component can be manufactured with perfect
 # precision. With that in mind, manufacturers label their parts with
-# a tolerance rating. So if you my a 500 Ohm resistor, the resistor will
+# a tolerance rating. So if you buy a 500 Ohm resistor, the resistor will
 # also have a tolerance rating, say +/- 5%, or +/- 1%, or something of the
 # sort. In general, for a more precise overall circuit, it is better to use
 # parts with lower tolerance ratings, however, such parts are also more
@@ -78,29 +78,29 @@ op = d.add(e.OPAMP, flip=True)
 d.add(e.LINE, d='left', l=1.75, xy=op.in2)
 R2 = d.add(e.RES, d='left',l=L, label='R')
 R1 = d.add(e.RES, d='left',l=L, label='R')
-d.add(e.DOT_OPEN, label='Input')
+d.add(e.DOT, label='Input')
 
-d.add(e.DOT, xy=R2.start)
+d.add(e.DOT_OPEN, xy=R2.start)
 d.add(e.CAP, d='down', l=L, label='C')
 d.add(e.GND)
 
-d.add(e.DOT, xy=R2.end)
+d.add(e.DOT_OPEN, xy=R2.end)
 d.add(e.LINE, d='up', l=1.5)
 d.add(e.CAP, d='right', tox=op.out+1, label='C')
 d.add(e.LINE, d='down', toy=op.out)
-d.add(e.DOT)
+d.add(e.DOT_OPEN)
 
 d.add(e.LINE, d='left', l=0.5, xy=op.in1)
 d.add(e.LINE, d='down', l=1.25)
-vm = d.add(e.DOT)
+vm = d.add(e.DOT_OPEN)
 d.add(e.RES, d='down', l=L, label='R1')
 d.add(e.GND)
 d.add(e.RES, xy=vm.start, d='right', label='R2', tox=op.out+0.5)
 d.add(e.LINE, d='up', toy=op.out)
-d.add(e.DOT)
+d.add(e.DOT_OPEN)
 
 d.add(e.LINE, d='right', xy=op.out, l=2)
-d.add(e.DOT_OPEN, label='Output')
+d.add(e.DOT, label='Output')
 
 d.draw()
 
@@ -262,4 +262,28 @@ plt.ylim(-60)
 
 # %% [markdown]
 # ## Implementation
+#
+# Now for an audio plugin to include component tolerances, is actually a
+# pretty simple matter. As an example, I've developed a simple plugin
+# that models the Sallen-Key lowpass filter circuit from above, and includes
+# an option to change the component tolerances. In my implementation, the
+# values of each component for each tolerance are calculated when the
+# plugin is initialized, using the truncated Gaussian distribution. Another
+# option could be for plugin manufacturers to generate some sort of random
+# seed from the registration or installation process of their plugin, so
+# _your_ copy of their plugin will sound the same every time you use it,
+# but will sound different from everybody elses.
+#
+# Another important thing to consider (in my opinion), is to use different
+# components for the two channels of a stereo effect, so that for tolerance
+# values greater than zero, the circuits being modelled between the two
+# channels is not exactly the same. For large component tolerances, this
+# stereo mismatch can make the effect seem unbalananced, and sort of "lean"
+# to one side, however for smaller values it still sounds correct,
+# while lending the sound a little bit of extra stereo "width", that would
+# be missing otherwise.
+#
+# ![pic](Pics/plugin.png)
 
+
+# %%

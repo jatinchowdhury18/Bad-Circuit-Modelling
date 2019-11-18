@@ -106,11 +106,11 @@ script:
       powershell -Command "Expand-Archive pluginval.zip -DestinationPath ."
       ./pluginval.exe --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/VisualStudio2017/x64/Debug/VST3/$PLUGIN.vst3"
     fi
-  - |
-    if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
-      curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip
-      unzip pluginval
-      ./pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/LinuxMakefile/build/$PLUGIN.so" || exit 1
-    fi
+  # - |
+  #   if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
+  #     curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip
+  #     unzip pluginval
+  #     ./pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/LinuxMakefile/build/$PLUGIN.so" || exit 1
+  #   fi
 
   - echo "SUCCESS"
