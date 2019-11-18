@@ -283,7 +283,15 @@ plt.ylim(-60)
 # while lending the sound a little bit of extra stereo "width", that would
 # be missing otherwise.
 #
-# ![pic](Pics/plugin.png)
+# ![pic](https://raw.githubusercontent.com/jatinchowdhury18/Bad-Circuit-Modelling/master/CMTolerance/Pics/plugin.png)
+#
+
+# %% [markdown]
+# ## Finally...
+#
+# That's all for today's article, thanks for reading! For my next article,
+# I'm planning to examine the effects of aging on electrical components,
+# and see how that affects our models of audio effect circuits.
 
 
 # %%
