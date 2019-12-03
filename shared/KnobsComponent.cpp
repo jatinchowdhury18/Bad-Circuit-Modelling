@@ -16,7 +16,7 @@ KnobsComponent::KnobsComponent (AudioProcessor& p, AudioProcessorValueTreeState&
         newSlide->slider.setName (param->name);
         newSlide->slider.textFromValueFunction = nullptr; // @TODO: Don't override lambda from VTS
         newSlide->slider.setNumDecimalPlacesToDisplay (2);
-        newSlide->slider.setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
+        newSlide->slider.setTextBoxStyle (Slider::TextBoxBelow, false, 75, 16);
         newSlide->slider.setColour (Slider::textBoxOutlineColourId, Colours::transparentBlack);
         newSlide->slider.onValueChange = paramLambda;
 
@@ -38,6 +38,21 @@ KnobsComponent::KnobsComponent (AudioProcessor& p, AudioProcessorValueTreeState&
         boxes.add (newBox);
     };
 
+    auto addButton = [=, &vts] (AudioParameterBool* param)
+    {
+        ButtonWithAttachment* newButton = new ButtonWithAttachment;
+
+        addAndMakeVisible (newButton->button);
+        newButton->button.setButtonText (param->name);
+        newButton->button.setClickingTogglesState (true);
+        newButton->button.setColour (TextButton::buttonOnColourId, Colours::red);
+        newButton->button.onStateChange = paramLambda;
+
+        newButton->attachment.reset (new ButtonAttachment (vts, param->paramID, newButton->button));
+
+        buttons.add (newButton);
+    };
+
     auto params = p.getParameters();
 
     for (auto* param : params)
@@ -51,6 +66,12 @@ KnobsComponent::KnobsComponent (AudioProcessor& p, AudioProcessorValueTreeState&
         if (auto* paramChoice = dynamic_cast<AudioParameterChoice*> (param))
         {
             addBox (paramChoice);
+            continue;
+        }
+
+        if (auto* paramBool = dynamic_cast<AudioParameterBool*> (param))
+        {
+            addButton (paramBool);
             continue;
         }
     }
@@ -84,7 +105,7 @@ void KnobsComponent::resized()
     for (auto* s : sliders)
     {
         int offset = first ? 0 : 20;
-        s->slider.setBounds (x - offset, 15, 80, 80);
+        s->slider.setBounds (x - offset, 15, 85, 80);
         x = s->slider.getRight();
         first = false;
     }
@@ -94,6 +115,14 @@ void KnobsComponent::resized()
         int offset = first ? 0 : 5;
         b->box.setBounds (x - offset, 40, 70, 20);
         x = b->box.getRight();
+        first = false;
+    }
+
+    for (auto* b : buttons)
+    {
+        int offset = first ? 0 : 5;
+        b->button.setBounds (x - offset, 40, 70, 20);
+        x = b->button.getRight();
         first = false;
     }
 }
