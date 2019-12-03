@@ -19,3 +19,9 @@ Current non-ideal circuit concepts include:
 [![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/Tolerances.html)
 
 <img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMTolerance/Pics/lpf_tgauss_plot.png" alt="Pic" width="500" height="350">
+
+**2. Component Aging**
+[![Medium](https://img.shields.io/badge/Read%20on-Medium-blue)]()
+[![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/Aging.html)
+
+<img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMAging/Pics/FullFail.png" alt="Pic" width="500" height="350">
