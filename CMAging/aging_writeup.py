@@ -58,8 +58,8 @@ def getCapVal(val, age, temp, fail=True):
         pred_lifetime = 10000 * 2**((450 - temp) / 10)
         lifetime = r.gauss(1.2*pred_lifetime, 0.1*pred_lifetime)
 
-        if (age > lifetime):
-            return r.gauss(1e-18, 0.01*1e-18)
+        if (age > lifetime): # failure
+            return r.uniform(0.0, 1.0) * 15.0*val + 0.5*val
 
     return val * (1 - 0.025 * np.log10(age))
 
@@ -209,7 +209,8 @@ plt.title('Sallen-Key LPF with Capacitor Aging and Failure')
 
 #%%
 legend = []
-for age in [1, 10, 20, 30, 50, 100]:
+worN = np.logspace(1, 3.3, num=1000, base=20)
+for age in [1, 10, 20, 30, 80]:
     b, a = design_SKLPF(4.7e-9, 33800, 1000, 1500, fs, age=age*365*24, temp=400)
     adsp.plot_magnitude_response(b, a, fs=fs)
     legend.append('{} years'.format(age))

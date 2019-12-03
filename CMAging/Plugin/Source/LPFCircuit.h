@@ -55,9 +55,10 @@ public:
         R4.setValue ((2.0f - (1.0f / Q)) * 1000.0f);
     }
 
-    float getActualFreq()
+    float getActualFreq (float level)
     {
-        return (1.0f / (MathConstants<float>::twoPi * sqrtf (R1.getValue() * R2.getValue() * C1.getValue() * C2.getValue())));
+        return (1.0f / (MathConstants<float>::twoPi * sqrtf (R1.getValue() * R2.getValue()
+                * C1.getValue (level) * C2.getValue (level))));
     }
 
     float getActualQ()

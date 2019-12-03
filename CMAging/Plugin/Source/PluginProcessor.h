@@ -73,6 +73,8 @@ private:
     LPF lpf[2];
     LPFCircuit lpfCircuit[2];
 
+    float rmsLevel[2] = { 0.0f, 0.0f };
+
     AudioProcessorValueTreeState vts;
 
     //==============================================================================

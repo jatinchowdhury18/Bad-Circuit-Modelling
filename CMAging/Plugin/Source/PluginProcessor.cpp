@@ -167,7 +167,7 @@ void CmagingAudioProcessor::updateParams()
         lpfCircuit[ch].setFreq (*freqParam);
         lpfCircuit[ch].setQ (*qParam);
 
-        lpf[ch].setFreq (lpfCircuit[ch].getActualFreq());
+        lpf[ch].setFreq (lpfCircuit[ch].getActualFreq (rmsLevel[ch]));
         lpf[ch].setQ (lpfCircuit[ch].getActualQ());
     }
 }
@@ -176,10 +176,13 @@ void CmagingAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer
 {
     ScopedNoDenormals noDenormals;
     
+
+
     updateParams();
 
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
+        rmsLevel[ch] = buffer.getRMSLevel (ch, 0, buffer.getNumSamples());
         lpf[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     }
 }

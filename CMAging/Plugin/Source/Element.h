@@ -25,8 +25,7 @@ class Element
 public:
     Element (float value, Type type) :
         idealValue (value),
-        type (type),
-        deadCapValue (Random::getSystemRandom().nextFloat() * (float) 1.0e-18 + (float) 1.0e-22)
+        type (type)
     {
     
     }
@@ -36,7 +35,7 @@ public:
     void setTemp (float tempInKelvin) { temp = tempInKelvin; }
     void setCapFail (bool shouldFail) { capLifetime = shouldFail && type == Type::Cap ? getCapLifetime() : std::numeric_limits<float>::max(); }
 
-    float getValue()
+    float getValue (float level = 0)
     {
         if (type == Type::Res)
         {
@@ -47,7 +46,7 @@ public:
         if (type == Type::Cap)
         {
             if (age > capLifetime)
-                return deadCapValue;
+                return (deadCapRandom.nextFloat() * 15.0f*idealValue + 0.5f*idealValue) * (1.0f - 0.6f * level);
 
             return idealValue * (1.0f - 0.025f * log10f (age));
         }
@@ -69,9 +68,9 @@ public:
 private:
     float idealValue;
     const Type type;
-    const float deadCapValue;
 
     MyRandomGenerator generator;
+    Random deadCapRandom;
 
     float capLifetime = std::numeric_limits<float>::max();
     float age = 1.0f; // hours
