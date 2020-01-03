@@ -3,10 +3,13 @@
 #include "JuceHeader.h"
 #include "LPF.h"
 
-class FreqViz : public Component
+class FreqViz : public Component,
+                private Timer
 {
 public:
     FreqViz (LPF& leftLPF, LPF& rightLPF);
+
+    void timerCallback() override;
 
     void updateCurve();
     float getFreqForX (float xPos);

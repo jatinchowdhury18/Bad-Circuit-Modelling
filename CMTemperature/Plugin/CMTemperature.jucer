@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="L5yOdU" name="CMAging" projectType="audioplug" jucerVersion="5.4.4"
-              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" headerPath="../../../../shared"
-              cppLanguageStandard="17" companyName="chowdsp">
-  <MAINGROUP id="tctfVU" name="CMAging">
-    <GROUP id="{50D9E76D-5EA3-9DFE-47B3-4F1F8F807857}" name="shared">
-      <FILE id="ajuyRK" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>
-      <FILE id="R7yE2E" name="FreqViz.h" compile="0" resource="0" file="../../shared/FreqViz.h"/>
-      <FILE id="IY7BQ3" name="KnobsComponent.cpp" compile="1" resource="0"
+<JUCERPROJECT id="hh9yG2" name="CMTemperature" projectType="audioplug" jucerVersion="5.4.4"
+              companyName="chowdsp" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
+              cppLanguageStandard="17" headerPath="../../../../shared">
+  <MAINGROUP id="Bnjbsa" name="CMTemperature">
+    <GROUP id="{18AFF536-49C4-999A-7AE6-0D6A40B8AB12}" name="shared">
+      <FILE id="fHOUEI" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>
+      <FILE id="iehYPa" name="FreqViz.h" compile="0" resource="0" file="../../shared/FreqViz.h"/>
+      <FILE id="zXnXUb" name="KnobsComponent.cpp" compile="1" resource="0"
             file="../../shared/KnobsComponent.cpp"/>
-      <FILE id="i408sn" name="KnobsComponent.h" compile="0" resource="0"
+      <FILE id="nGeu2W" name="KnobsComponent.h" compile="0" resource="0"
             file="../../shared/KnobsComponent.h"/>
-      <FILE id="TrOekK" name="LPF.h" compile="0" resource="0" file="../../shared/LPF.h"/>
-      <FILE id="Yq4RG2" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="KOVQvi" name="LPF.h" compile="0" resource="0" file="../../shared/LPF.h"/>
+      <FILE id="C5dNnZ" name="PluginEditor.cpp" compile="1" resource="0"
             file="../../shared/PluginEditor.cpp"/>
-      <FILE id="Nys51l" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
+      <FILE id="BplRdG" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
     </GROUP>
-    <GROUP id="{7EC7CF93-713A-2033-E165-608DD64665D5}" name="Source">
-      <FILE id="B6zbaU" name="Element.h" compile="0" resource="0" file="Source/Element.h"/>
-      <FILE id="zfGzZk" name="LPFCircuit.h" compile="0" resource="0" file="Source/LPFCircuit.h"/>
-      <FILE id="kSLVSZ" name="PluginProcessor.cpp" compile="1" resource="0"
+    <GROUP id="{432D70D2-5DAA-BCCE-A0B5-3BD7381A564F}" name="Source">
+      <FILE id="UyktLq" name="CapNoise.h" compile="0" resource="0" file="Source/CapNoise.h"/>
+      <FILE id="AtuErb" name="LPFCircuit.h" compile="0" resource="0" file="Source/LPFCircuit.h"/>
+      <FILE id="KO01Rt" name="NoisyLPF.h" compile="0" resource="0" file="Source/NoisyLPF.h"/>
+      <FILE id="HjhUtL" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="u3ZtFz" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="J20HXZ" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
     </GROUP>
   </MAINGROUP>

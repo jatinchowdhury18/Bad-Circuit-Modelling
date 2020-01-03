@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="a3dAvU" name="CMTolerance" projectType="audioplug" jucerVersion="5.4.4"
               cppLanguageStandard="17" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
-              headerPath="../../../../shared">
+              headerPath="../../../../shared" companyName="chowdsp">
   <MAINGROUP id="PDqXcV" name="CMTolerance">
     <GROUP id="{C6A3A884-EDB4-0598-7DC2-719720019579}" name="shared">
       <FILE id="N47Eu3" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>

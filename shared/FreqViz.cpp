@@ -11,6 +11,13 @@ FreqViz::FreqViz (LPF& leftLPF, LPF& rightLPF) :
     leftLPF (leftLPF),
     rightLPF (rightLPF)
 {
+    startTimerHz (20);
+
+    updateCurve();
+}
+
+void FreqViz::timerCallback()
+{
     updateCurve();
 }
 

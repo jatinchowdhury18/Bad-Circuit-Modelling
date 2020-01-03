@@ -12,13 +12,15 @@ public:
         Q.reset (smoothSteps);
     }
 
-    void setFreq (float freq)
+    virtual ~LPF() {}
+
+    virtual void setFreq (float freq)
     {
         if (freq != fc.getTargetValue())
             fc.setTargetValue (jmin (freq, fs / 2.0f - 50.0f));
     }
 
-    void setQ (float newQ)
+    virtual void setQ (float newQ)
     {
         if (newQ != Q.getTargetValue())
             Q.setTargetValue (newQ);
@@ -49,7 +51,7 @@ public:
         a[2] = (phi - K + 1.0f) / a0;
     }
 
-    void processBlock (float* buffer, const int numSamples)
+    virtual void processBlock (float* buffer, const int numSamples)
     {
         for (int n = 0; n < numSamples; ++n)
         {
@@ -68,13 +70,17 @@ public:
         return y;
     }
 
-    float getMagnitudeAtFreq (float freq)
+    virtual float getMagnitudeAtFreq (float freq)
     {
         std::complex <float> s (0, freq / fc.getTargetValue()); // s = j (w / w0)
         auto numerator = 1.0f;
         auto denominator = s * s + s / Q.getTargetValue() + 1.0f;
         return abs (numerator / denominator);
     }
+
+protected:
+    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> fc = 1000.0f;
+    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> Q = 0.707f;
 
 private:
     enum
@@ -83,8 +89,6 @@ private:
     };
 
     float fs = 44100.0f;
-    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> fc = 1000.0f;
-    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> Q = 0.707f;
 
     float b[3] = { 1.0f, 0.0f, 0.0f };
     float a[3] = { 1.0f, 0.0f, 0.0f };
