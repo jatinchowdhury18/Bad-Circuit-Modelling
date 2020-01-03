@@ -15,6 +15,7 @@ os:
 env:
   - PLUGIN=CMTolerance
   - PLUGIN=CMAging
+  - PLUGIN=CMTemperature
 
 stages:
   - name: addons
