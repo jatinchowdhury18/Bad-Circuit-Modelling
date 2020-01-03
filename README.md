@@ -30,4 +30,4 @@ Current non-ideal circuit concepts include:
 [![Medium](https://img.shields.io/badge/Read%20on-Medium-blue)](https://medium.com/@jatinchowdhury18/bad-circuit-modelling-episode-3-temperature-e31d124767f1)
 [![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/Temperature.html)
 
-<img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMTemperature/Pics/Temperature.png" alt="Pic" width="500" height="350">
+<img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMTemperature/Pics/Temperature.png" alt="Pic" width="350" height="377">
