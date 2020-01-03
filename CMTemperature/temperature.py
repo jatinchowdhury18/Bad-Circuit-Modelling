@@ -11,11 +11,11 @@ plt.style.use('dark_background')
 # %% [markdown]
 # # Bad Circuit Modelling: Temperature
 #
-# Today, we'll be discussing one more way by which real-world analog
-# circuits can exhbit non-ideal behavior. Circuit components tend to
-# behave differently at different operating temperatures. So a guitar
-# pedal, for instance, might sound a little bit different at a chilly
-# winter concert in Montreal, compared to a sweltering summer gig in
+# Today, we'll give a brief discussion of another method by which
+# real-world analog circuits can exhbit non-ideal behavior. Circuit
+# components tend to behave differently at different operating temperatures.
+# So a guitar pedal, for instance, might sound a little bit different at a
+# chilly winter concert in Montreal, compared to a sweltering summer gig in
 # Austin, Texas. As with the previous two articles in this series, we'll
 # be focusing on resistors and capacitors, but a similar thoertical
 # approach can be applied to any circuit component.
@@ -46,79 +46,52 @@ Image(filename='../CMTolerance/Pics/Sallen-Key.png')
 # $R_1 = 1 \text{ kOhms}$.
 
 # %%
-def getResVal(val, temp, alpha):
-    return val * (1 + alpha * 10e-6 * (temp - 20))
-
-def getCapVal(val, temp):
-    return val
-
-def design_SKLPF(R, C, R1, R2, fs, temp=20, alpha=0):
-    fc = 1.0 / (2 * np.pi * getResVal(R, temp, alpha) * getCapVal(C, temp))
-    Q = 1.0 / (2 - (getResVal(R2, temp, alpha) / getResVal(R1, temp, alpha)))
+def design_SKLPF(R, C, R1, R2):
+    fc = 1.0 / (2 * np.pi * R * C)
+    Q = 1.0 / (2 - (R2 / R1))
 
     return adsp.design_LPF2(fc, Q, fs)
 
 fs = 44100
-b, a = design_SKLPF(4.7e-9, 33800, 1000, 1500, fs)
+b, a = design_SKLPF(4.7e-9, 33800, 1000, 1500)
 adsp.plot_magnitude_response(b, a, fs=fs)
 plt.ylim(-60)
 plt.title('Sallen-Key LPF')
 
 # %% [markdown]
-# ## Resistor Temperature Dependence
+# ## Capacitor Temperature Dependence
 #
-# The temperature dependence of a resistor is described by the
-# following equation:
+# While the resistance of the circuit resistors as well as
+# the wires in the circuit are affected somewhat by the
+# circuit operating temperature, these effects are mostly
+# negligible. The most noticeable effect that temperature
+# fluctutations will have on the circuit is that the capcitors
+# will be noisier at higher temperatures. The standard deviation
+# of the capacitor noise is defined by:
 #
 # $$
-# R = R_{ref} (1 + \alpha (T - T_{ref}))
+# Q_n = \sqrt{k_B T C}
 # $$
 #
-# Where $R_{ref}$ is the ideal resistor value, $T$ is the operating
-# temperature (measured in Celsius), $T_{ref}$ is the reference
-# temperature where the ideal resistance value was measured (usually
-# 20 Celsuis), and $\alpha$ is the temperature coefficient of the
-# resistor material.
+# where $k_B$ is Boltzmann's constant, $T$ is the temperature
+# in Kelvin, and $C$ is the capacitance value (for more information on
+# capcitor noise of this type, see [here](https://en.wikipedia.org/wiki/Johnson%E2%80%93Nyquist_noise)).
+# We can then determine the voltage that the noise from each capacitor
+# will add to the output.
 #
-# Below, we show how a $1 k\Omega$ resistor is affected by temperature
-# for resistors made of Carbon, Silicon, and Germanium.
-
-# %%
-R_ref = 1000
-T_ref = 20
-T = np.linspace(-273, 1000, num=100)
-
-alphas = [-0.075, -0.048, -0.0005]
-names = ['Silicon', 'Germanium', 'Carbon']
-
-plt.figure()
-for i, a in enumerate (alphas):
-    plt.plot(T, R_ref * (1 + (a * 10e-6 * (T - T_ref))) / 1000, label=names[i])
-
-plt.legend()
-plt.xlabel(r'Temperature $^{\circ}C$')
-plt.ylabel(r'Resistance $k\Omega$')
-plt.ylim((0.999, 1.0006))
-
-# %% [markdown]
-# So for resistors, it seems that we don't see much change in the
-# resistor's behavior, at least until we go out to extraordinarily
-# extreme temperatures (for an average audio circuit). That said, it
-# can still be interesting to see what happens to our Sallen-Key filter
-# for different resistor temperatures. For this example, we'll use Silicon
-# resistors.
-
-# %%
-alpha = -0.075
-legend = []
-for temp in [-100, 20, 1000, 10000, 100000]:
-    b, a = design_SKLPF(4.7e-9, 33800, 1000, 1500, fs, temp=temp, alpha=alpha)
-    adsp.plot_magnitude_response(b, a, fs=fs)
-    legend.append('T = {}C'.format(temp))
-
-plt.ylim(-60)
-plt.title('Sallen-Key LPF with Resistor Temp. Dependence')
-plt.legend(legend)
-
-
-# %%
+# For the capacitor in the upper feedback loop, the noise voltage can
+# be added directly to the output. For the capacitor connected to the
+# positive terminal of the op-amp, the noise voltage will be added
+# through the voltage divider made up of R1 and R2.
+#
+# $$
+# V_{out} = V_{LPF} + \delta V_{C1} + \delta V_{C2} \left(\frac{R_1 + R_2}{R_1}\right)
+# $$
+#
+# ## Implementation
+# Visualizing the effects of this capacitor noise is a little bit
+# difficult, so to demonstrate these effects I have developed a simple
+# audio plugin using the JUCE framework that implements the capacitor
+# noise into a model of the Sallen-Key LPF circuit. Source code is
+# available on [GitHub](https://github.com/jatinchowdhury18/Bad-Circuit-Modelling),
+# and a video demo is available on [YouTube](https://youtu.be/Ww4Ihfai8go).

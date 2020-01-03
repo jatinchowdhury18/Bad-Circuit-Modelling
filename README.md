@@ -25,3 +25,9 @@ Current non-ideal circuit concepts include:
 [![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/Aging.html)
 
 <img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMAging/Pics/FullFail.png" alt="Pic" width="500" height="350">
+
+**3. Capacitor Temperature**
+[![Medium](https://img.shields.io/badge/Read%20on-Medium-blue)](https://medium.com/@jatinchowdhury18/bad-circuit-modelling-episode-3-temperature-e31d124767f1)
+[![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/Temperature.html)
+
+<img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMTemperature/Pics/Temperature.png" alt="Pic" width="500" height="350">
