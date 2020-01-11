@@ -26,7 +26,7 @@ public:
             Q.setTargetValue (newQ);
     }
 
-    void reset (float sampleRate)
+    virtual void reset (float sampleRate)
     {
         fs = sampleRate;
 

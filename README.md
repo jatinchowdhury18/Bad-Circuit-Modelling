@@ -31,3 +31,9 @@ Current non-ideal circuit concepts include:
 [![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/Temperature.html)
 
 <img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/CMTemperature/Pics/Temperature.png" alt="Pic" width="350" height="377">
+
+**4. Non-ideal Op Amps**
+[![Medium](https://img.shields.io/badge/Read%20on-Medium-blue)](https://medium.com/@jatinchowdhury18/bad-circuit-modelling-episode-4-op-amps-a781bfe455af)
+[![Jupyter](https://img.shields.io/badge/Read%20as-Jupyter-orange)](https://ccrma.stanford.edu/~jatin/Bad-Circuit-Modelling/OpAmp.html)
+
+<img src="https://github.com/jatinchowdhury18/Bad-Circuit-Modelling/blob/master/OpAmp/Pics/temp_freq_response.png" alt="Pic" width="500" height="350">

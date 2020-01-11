@@ -16,6 +16,7 @@ env:
   - PLUGIN=CMTolerance
   - PLUGIN=CMAging
   - PLUGIN=CMTemperature
+  - PLUGIN=OpAmp
 
 stages:
   - name: addons
