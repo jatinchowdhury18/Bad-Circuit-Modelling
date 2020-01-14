@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "OpAmpLPF.h"
+#include "LPFCircuit.h"
 
 //==============================================================================
 /**
@@ -68,12 +69,18 @@ private:
     float* qParam;
 
     // components
+    float* cTolParam;
+    float* cAgeParam;
+    float* cTempParam;
+    float* cCapFailParam;
 
     // op amp
     float* oaTempParam;
     float* oaAgeParam;
 
     OpAmpLPF lpf[2];
+    LPFCircuit circuit[2];
+    float rmsLevel[2] = { 0.0f, 0.0f };
 
     OwnedArray<AudioProcessorValueTreeState> vts;
 

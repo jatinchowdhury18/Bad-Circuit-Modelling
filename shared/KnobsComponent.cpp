@@ -92,7 +92,7 @@ void KnobsComponent::paint (Graphics& g)
     g.fillAll (Colours::black);
 
     g.setColour (Colours::white);
-    g.drawLine (0, 0, getWidth(), 0);
+    g.drawLine (0.0f, 0.0f, (float) getWidth(), 0.0f);
 
     g.setColour (Colours::white);
     auto makeName = [this, &g] (Component& comp, String name)

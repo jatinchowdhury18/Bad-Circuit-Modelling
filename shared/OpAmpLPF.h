@@ -48,7 +48,7 @@ private:
 
     float freq = 20000.0f;
     float noiseDB = -120.0f;
-    float dropoutAValue = 0.00001;
+    float dropoutAValue = 0.00001f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OpAmpLPF)
 };

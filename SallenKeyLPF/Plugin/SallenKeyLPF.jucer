@@ -21,6 +21,9 @@
       <FILE id="Kx9bao" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
     </GROUP>
     <GROUP id="{690BB729-385E-4FB0-7DD3-417C9B4E78C0}" name="Source">
+      <FILE id="Q8moup" name="LPFCircuit.h" compile="0" resource="0" file="Source/LPFCircuit.h"/>
+      <FILE id="qUf7oA" name="Element.cpp" compile="1" resource="0" file="Source/Element.cpp"/>
+      <FILE id="aIdxAK" name="Element.h" compile="0" resource="0" file="Source/Element.h"/>
       <FILE id="x1PXNB" name="FullKnobsComponent.h" compile="0" resource="0"
             file="Source/FullKnobsComponent.h"/>
       <FILE id="VKDMPi" name="PluginProcessor.cpp" compile="1" resource="0"

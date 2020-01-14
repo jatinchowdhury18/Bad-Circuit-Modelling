@@ -30,7 +30,10 @@ SallenKeyLpfAudioProcessor::SallenKeyLpfAudioProcessor()
     qParam = vts[0]->getRawParameterValue ("filtq_");
 
     vts.add (std::make_unique<AudioProcessorValueTreeState> (*this, nullptr, Identifier ("ComponentsParameters"), createParameterLayout (1)));
-
+    cTolParam = vts[1]->getRawParameterValue ("c_tol");
+    cAgeParam = vts[1]->getRawParameterValue ("c_age_yrs");
+    cTempParam = vts[1]->getRawParameterValue ("c_temp_C");
+    cCapFailParam = vts[1]->getRawParameterValue ("c_capfail");
 
     vts.add (std::make_unique<AudioProcessorValueTreeState> (*this, nullptr, Identifier ("OpAmpParameters"), createParameterLayout (2)));
     oaTempParam = vts[2]->getRawParameterValue ("oa_temp_C");
@@ -59,15 +62,14 @@ AudioProcessorValueTreeState::ParameterLayout SallenKeyLpfAudioProcessor::create
     else if (type == 1) // component parameters
     {
         // Tolerance
-        StringArray choices ({ "Test", "test2" });
-        params.push_back (std::make_unique<AudioParameterChoice> ("tol", "Tolerance", choices, 0)); // Element::getChoices(), 0));
+        params.push_back (std::make_unique<AudioParameterChoice> ("c_tol", "Tolerance", Element::getChoices(), 0));
 
         // Aging
         NormalisableRange<float> ageRange (0.0f, 500.0f);
         ageRange.setSkewForCentre (50.0f);
 
         params.push_back (std::make_unique<AudioParameterFloat> ("c_age_yrs", "Age", ageRange, 0.0f));
-        params.push_back (std::make_unique<AudioParameterFloat> ("c_temp_C", "Operating Temp", 100.0f, 500.0f, 373.0f));
+        params.push_back (std::make_unique<AudioParameterFloat> ("c_temp_C", "Operating Temp", -200.0f, 200.0f, 25.0f));
         params.push_back (std::make_unique<AudioParameterBool>  ("c_capfail", "Cap Fail", true));
     }
     else if (type == 2) // op amp parameters
@@ -180,9 +182,15 @@ void SallenKeyLpfAudioProcessor::updateParams()
 {
     for (int ch = 0; ch < 2; ++ch)
     {
+        circuit[ch].setTolerance ((int) *cTolParam);
+        circuit[ch].setAgeCharacteristics (*cAgeParam, *cTempParam + 273.0f, (bool) *cCapFailParam);
+        circuit[ch].setFreq (*freqParam);
+        circuit[ch].setQ (*qParam);
+
         lpf[ch].setTempAndAge (*oaTempParam + 273.0f, *oaAgeParam);
-        lpf[ch].setFreq (*freqParam);
-        lpf[ch].setQ (*qParam);
+
+        lpf[ch].setFreq (circuit[ch].getActualFreq (rmsLevel[ch]));
+        lpf[ch].setQ (circuit[ch].getActualQ());
     }
 }
 
@@ -193,6 +201,7 @@ void SallenKeyLpfAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
     updateParams();
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
+        rmsLevel[ch] = buffer.getRMSLevel (ch, 0, buffer.getNumSamples());
         lpf[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     }
 }
