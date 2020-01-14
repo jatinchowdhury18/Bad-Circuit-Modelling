@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="X7ubCA" name="OpAmp" projectType="audioplug" jucerVersion="5.4.4"
+<JUCERPROJECT id="aIzoJ5" name="SallenKeyLPF" projectType="audioplug" jucerVersion="5.4.4"
               companyName="chowdsp" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
               cppLanguageStandard="17" headerPath="../../../../shared">
-  <MAINGROUP id="JXYY4F" name="OpAmp">
-    <GROUP id="{6E7ABB54-A22F-C08B-2782-C7B256D8FA94}" name="shared">
-      <FILE id="qN4YB6" name="AmpNoise.h" compile="0" resource="0" file="../../shared/AmpNoise.h"/>
-      <FILE id="AJwVwI" name="Dropout.h" compile="0" resource="0" file="../../shared/Dropout.h"/>
-      <FILE id="bGfvp7" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>
-      <FILE id="IQUyuy" name="FreqViz.h" compile="0" resource="0" file="../../shared/FreqViz.h"/>
-      <FILE id="aY2qwg" name="KnobsComponent.cpp" compile="1" resource="0"
+  <MAINGROUP id="UnckyO" name="SallenKeyLPF">
+    <GROUP id="{01986A89-C9BA-604C-CE37-CA087150CE1B}" name="shared">
+      <FILE id="VUpVYv" name="AmpNoise.h" compile="0" resource="0" file="../../shared/AmpNoise.h"/>
+      <FILE id="FjePUE" name="Dropout.h" compile="0" resource="0" file="../../shared/Dropout.h"/>
+      <FILE id="Rv2Kl3" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>
+      <FILE id="uKkpVK" name="FreqViz.h" compile="0" resource="0" file="../../shared/FreqViz.h"/>
+      <FILE id="zUCB6D" name="KnobsComponent.cpp" compile="1" resource="0"
             file="../../shared/KnobsComponent.cpp"/>
-      <FILE id="yKU11x" name="KnobsComponent.h" compile="0" resource="0"
+      <FILE id="zUeE4Z" name="KnobsComponent.h" compile="0" resource="0"
             file="../../shared/KnobsComponent.h"/>
-      <FILE id="MEMiEr" name="LPF.h" compile="0" resource="0" file="../../shared/LPF.h"/>
-      <FILE id="WZuLOU" name="LPF1.h" compile="0" resource="0" file="../../shared/LPF1.h"/>
-      <FILE id="nOx8Zs" name="OpAmpLPF.h" compile="0" resource="0" file="../../shared/OpAmpLPF.h"/>
-      <FILE id="ggdwzZ" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="HFbiAP" name="LPF.h" compile="0" resource="0" file="../../shared/LPF.h"/>
+      <FILE id="uCWwnq" name="LPF1.h" compile="0" resource="0" file="../../shared/LPF1.h"/>
+      <FILE id="WY0hga" name="OpAmpLPF.h" compile="0" resource="0" file="../../shared/OpAmpLPF.h"/>
+      <FILE id="PMYIXh" name="PluginEditor.cpp" compile="1" resource="0"
             file="../../shared/PluginEditor.cpp"/>
-      <FILE id="IW56Jp" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
+      <FILE id="Kx9bao" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
     </GROUP>
-    <GROUP id="{EBB3F12C-9C56-D7F7-8621-451947B9085A}" name="Source">
-      <FILE id="vZKOqa" name="PluginProcessor.cpp" compile="1" resource="0"
+    <GROUP id="{690BB729-385E-4FB0-7DD3-417C9B4E78C0}" name="Source">
+      <FILE id="x1PXNB" name="FullKnobsComponent.h" compile="0" resource="0"
+            file="Source/FullKnobsComponent.h"/>
+      <FILE id="VKDMPi" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="riFIKb" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="LguXLP" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
+      <FILE id="d9sBlg" name="FullPluginEditor.cpp" compile="1" resource="0"
+            file="Source/FullPluginEditor.cpp"/>
+      <FILE id="zqy59r" name="FullPluginEditor.h" compile="0" resource="0"
+            file="Source/FullPluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

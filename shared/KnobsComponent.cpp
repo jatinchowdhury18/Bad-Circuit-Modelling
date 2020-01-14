@@ -57,6 +57,14 @@ KnobsComponent::KnobsComponent (AudioProcessor& p, AudioProcessorValueTreeState&
 
     for (auto* param : params)
     {
+        // check that param is in thie ValueTreeState
+        if (auto* rangedParam = dynamic_cast<RangedAudioParameter*> (param))
+        {
+            if (vts.getParameter (rangedParam->paramID) == nullptr)
+                continue;
+        }
+
+
         if (auto* paramFloat = dynamic_cast<AudioParameterFloat*> (param))
         {
             addSlider (paramFloat);
@@ -82,6 +90,9 @@ KnobsComponent::KnobsComponent (AudioProcessor& p, AudioProcessorValueTreeState&
 void KnobsComponent::paint (Graphics& g)
 {
     g.fillAll (Colours::black);
+
+    g.setColour (Colours::white);
+    g.drawLine (0, 0, getWidth(), 0);
 
     g.setColour (Colours::white);
     auto makeName = [this, &g] (Component& comp, String name)

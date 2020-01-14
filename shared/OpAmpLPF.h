@@ -38,7 +38,7 @@ public:
 
     float getMagnitudeAtFreq (float f) override
     {
-        return LPF::getMagnitudeAtFreq (f) * lpf1.getMagnitudeAtFreq (f) * (1.0f + ampNoise.getNoiseMag());
+        return LPF::getMagnitudeAtFreq (f) * lpf1.getMagnitudeAtFreq (f) * (1.0f + 10.0f * ampNoise.getNoiseMag());
     }
 
 private:

@@ -33,10 +33,12 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
 
-private:
+protected:
     OwnedArray<SliderWithAttachment> sliders;
     OwnedArray<BoxWithAttachment> boxes;
     OwnedArray<ButtonWithAttachment> buttons;
+
+private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobsComponent)
 };
