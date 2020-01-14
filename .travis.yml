@@ -17,6 +17,7 @@ env:
   - PLUGIN=CMAging
   - PLUGIN=CMTemperature
   - PLUGIN=OpAmp
+  - PLUGIN=SallenKeyLPF
 
 stages:
   - name: addons
