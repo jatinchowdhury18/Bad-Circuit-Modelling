@@ -7,12 +7,12 @@ do
     scp $f jatin@ccrma-gate.stanford.edu:~/Library/Web/Bad-Circuit-Modelling/
 done
 
-# Copy papers
-# for f in */Paper/*.pdf
-# do
-#     echo "Copying $f"
-#     scp $f jatin@ccrma-gate.stanford.edu:~/Library/Web/ComplexNonlinearities/
-# done
+Copy papers
+for f in Paper/*.pdf
+do
+    echo "Copying $f"
+    scp $f jatin@ccrma-gate.stanford.edu:~/Library/Web/papers/
+done
 
 # Deploy notebooks as html
 echo "SSH-ing to server..."
