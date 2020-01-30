@@ -18,6 +18,7 @@ env:
   - PLUGIN=CMTemperature
   - PLUGIN=OpAmp
   - PLUGIN=SallenKeyLPF
+  - PLUGIN=DiodeClipper
 
 stages:
   - name: addons

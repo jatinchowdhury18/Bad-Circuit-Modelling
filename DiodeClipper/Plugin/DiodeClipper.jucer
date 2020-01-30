@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="aIzoJ5" name="SallenKeyLPF" projectType="audioplug" jucerVersion="5.4.4"
+<JUCERPROJECT id="EckDz7" name="DiodeClipper" projectType="audioplug" jucerVersion="5.4.4"
               companyName="chowdsp" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
-              cppLanguageStandard="17" headerPath="../../../../shared&#10;../../../Elements">
-  <MAINGROUP id="UnckyO" name="SallenKeyLPF">
-    <GROUP id="{9054E143-843D-B876-3821-22490DEB5F92}" name="Elements">
-      <FILE id="R31m66" name="Element.cpp" compile="1" resource="0" file="../Elements/Element.cpp"/>
-      <FILE id="kNgWKs" name="Element.h" compile="0" resource="0" file="../Elements/Element.h"/>
+              cppLanguageStandard="17" headerPath="../../../../shared&#10;../../../../SallenKeyLPF/Elements&#10;../../../WaveDigitalFilters/shared&#10;../../../WaveDigitalFilters/DiodeClipper/Source">
+  <MAINGROUP id="EvSGSq" name="DiodeClipper">
+    <GROUP id="{1F2F4F98-D219-F1AD-6000-1580E35DC694}" name="Elements">
+      <FILE id="a3IJab" name="Element.cpp" compile="1" resource="0" file="../../SallenKeyLPF/Elements/Element.cpp"/>
+      <FILE id="vjsqsK" name="Element.h" compile="0" resource="0" file="../../SallenKeyLPF/Elements/Element.h"/>
     </GROUP>
-    <GROUP id="{01986A89-C9BA-604C-CE37-CA087150CE1B}" name="shared">
-      <FILE id="VUpVYv" name="AmpNoise.h" compile="0" resource="0" file="../../shared/AmpNoise.h"/>
-      <FILE id="FjePUE" name="Dropout.h" compile="0" resource="0" file="../../shared/Dropout.h"/>
-      <FILE id="Rv2Kl3" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>
-      <FILE id="uKkpVK" name="FreqViz.h" compile="0" resource="0" file="../../shared/FreqViz.h"/>
-      <FILE id="FASdFS" name="FullKnobsComponent.h" compile="0" resource="0"
+    <GROUP id="{D711E550-E3CD-9390-901C-D5C89553C19E}" name="WDF">
+      <FILE id="OQ9Q1J" name="DiodeClipper.h" compile="0" resource="0" file="../WaveDigitalFilters/DiodeClipper/Source/DiodeClipper.h"/>
+      <FILE id="mPNDOv" name="omega.h" compile="0" resource="0" file="../WaveDigitalFilters/shared/omega.h"/>
+      <FILE id="FI859a" name="wdf.h" compile="0" resource="0" file="../WaveDigitalFilters/shared/wdf.h"/>
+    </GROUP>
+    <GROUP id="{C593B7ED-855B-9994-D22A-00A63E316BD1}" name="shared">
+      <FILE id="IRL5gN" name="AmpNoise.h" compile="0" resource="0" file="../../shared/AmpNoise.h"/>
+      <FILE id="kXzKmp" name="Dropout.h" compile="0" resource="0" file="../../shared/Dropout.h"/>
+      <FILE id="bFKtA4" name="FreqViz.cpp" compile="1" resource="0" file="../../shared/FreqViz.cpp"/>
+      <FILE id="ordnu8" name="FreqViz.h" compile="0" resource="0" file="../../shared/FreqViz.h"/>
+      <FILE id="XZSB76" name="FullKnobsComponent.h" compile="0" resource="0"
             file="../../shared/FullKnobsComponent.h"/>
-      <FILE id="zUCB6D" name="KnobsComponent.cpp" compile="1" resource="0"
+      <FILE id="KByuNx" name="KnobsComponent.cpp" compile="1" resource="0"
             file="../../shared/KnobsComponent.cpp"/>
-      <FILE id="zUeE4Z" name="KnobsComponent.h" compile="0" resource="0"
+      <FILE id="zgKFy9" name="KnobsComponent.h" compile="0" resource="0"
             file="../../shared/KnobsComponent.h"/>
-      <FILE id="HFbiAP" name="LPF.h" compile="0" resource="0" file="../../shared/LPF.h"/>
-      <FILE id="uCWwnq" name="LPF1.h" compile="0" resource="0" file="../../shared/LPF1.h"/>
-      <FILE id="WY0hga" name="OpAmpLPF.h" compile="0" resource="0" file="../../shared/OpAmpLPF.h"/>
-      <FILE id="PMYIXh" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="RXtye2" name="LPF.h" compile="0" resource="0" file="../../shared/LPF.h"/>
+      <FILE id="eYC9dX" name="LPF1.h" compile="0" resource="0" file="../../shared/LPF1.h"/>
+      <FILE id="LEbWO9" name="OpAmpLPF.h" compile="0" resource="0" file="../../shared/OpAmpLPF.h"/>
+      <FILE id="MS871T" name="PluginEditor.cpp" compile="1" resource="0"
             file="../../shared/PluginEditor.cpp"/>
-      <FILE id="Kx9bao" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
+      <FILE id="bhopvM" name="PluginEditor.h" compile="0" resource="0" file="../../shared/PluginEditor.h"/>
     </GROUP>
-    <GROUP id="{690BB729-385E-4FB0-7DD3-417C9B4E78C0}" name="Source">
-      <FILE id="Q8moup" name="LPFCircuit.h" compile="0" resource="0" file="Source/LPFCircuit.h"/>
-      <FILE id="VKDMPi" name="PluginProcessor.cpp" compile="1" resource="0"
+    <GROUP id="{FDC81726-1D2C-09E3-DC60-DB1F87268F61}" name="Source">
+      <FILE id="byXaTS" name="DiodeClipperCircuit.h" compile="0" resource="0"
+            file="Source/DiodeClipperCircuit.h"/>
+      <FILE id="CjrVOl" name="DiodeClipperEditor.cpp" compile="1" resource="0"
+            file="Source/DiodeClipperEditor.cpp"/>
+      <FILE id="n1FUiO" name="DiodeClipperEditor.h" compile="0" resource="0"
+            file="Source/DiodeClipperEditor.h"/>
+      <FILE id="O3dpUE" name="DiodeClipperViz.cpp" compile="1" resource="0"
+            file="Source/DiodeClipperViz.cpp"/>
+      <FILE id="SrVGwI" name="DiodeClipperViz.h" compile="0" resource="0"
+            file="Source/DiodeClipperViz.h"/>
+      <FILE id="JwUruX" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="LguXLP" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="vDlIHJ" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="d9sBlg" name="FullPluginEditor.cpp" compile="1" resource="0"
-            file="Source/FullPluginEditor.cpp"/>
-      <FILE id="zqy59r" name="FullPluginEditor.h" compile="0" resource="0"
-            file="Source/FullPluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
