@@ -184,6 +184,8 @@ void DiodeClipperAudioProcessor::updateParams()
 
         diodeClipper[ch].setCircuitElements (diodeCircuit[ch].getR(), diodeCircuit[ch].getC());
     }
+
+    curGain = Decibels::decibelsToGain (*gainDBParam);
 }
 
 void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
@@ -191,8 +193,6 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
     ScopedNoDenormals noDenormals;
 
     updateParams();
-
-    curGain = Decibels::decibelsToGain (*gainDBParam);
 
     if (oldGain == curGain)
     {

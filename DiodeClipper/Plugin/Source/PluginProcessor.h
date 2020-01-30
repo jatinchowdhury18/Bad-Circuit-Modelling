@@ -61,7 +61,7 @@ public:
     void updateParams();
 
     DiodeClipperCircuit& getCircuit (int ind) { return diodeCircuit[ind]; }
-    float& getGainParam() { return *gainDBParam; }
+    float& getGainParam() { return curGain; }
 
 private:
     // general params
