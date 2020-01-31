@@ -37,7 +37,7 @@ void DiodeClipperViz::updateCurve()
         auto& circuit = ch == 0 ? circuitL : circuitR;
 
         diodeClipper[ch].reset ((double) fs, 1000.0);
-        diodeClipper[ch].setCircuitElements (circuit.getR(), circuit.getC());
+        diodeClipper[ch].setCircuitElements (circuit.getR(), circuit.getC (gain));
 
         auto* buffer = wetBuffer.getWritePointer (0);
         for (int n = 0; n < size; ++n)

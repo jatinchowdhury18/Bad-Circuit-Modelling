@@ -182,7 +182,7 @@ void DiodeClipperAudioProcessor::updateParams()
         diodeCircuit[ch].setAgeCharacteristics (*cAgeParam, *cTempParam + 273.0f, (bool) *cCapFailParam);
         diodeCircuit[ch].setFreq (*freqParam);
 
-        diodeClipper[ch].setCircuitElements (diodeCircuit[ch].getR(), diodeCircuit[ch].getC());
+        diodeClipper[ch].setCircuitElements (diodeCircuit[ch].getR(), diodeCircuit[ch].getC (rmsLevel[ch]));
     }
 
     curGain = Decibels::decibelsToGain (*gainDBParam);
@@ -221,6 +221,9 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
     }
 
     oversampling.processSamplesDown (block);
+
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        rmsLevel[ch] = buffer.getRMSLevel (ch, 0, buffer.getNumSamples());
 }
 
 //==============================================================================

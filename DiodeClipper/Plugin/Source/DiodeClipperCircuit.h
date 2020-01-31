@@ -33,7 +33,7 @@ public:
     }
 
     float getR() { return R1.getValue(); }
-    float getC() { return C1.getValue(); }
+    float getC (float level) { return C1.getValue (level); }
 
 private:
     Element R1;
