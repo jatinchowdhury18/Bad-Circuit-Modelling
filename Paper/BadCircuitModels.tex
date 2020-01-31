@@ -120,29 +120,29 @@ Traditional circuit modelling methods typically assume ideal
 circuit components. Real world audio circuits exhibit
 variations in behavior due to non-ideal factors including
 component tolerances, operating temperature, and aging.
-We present an brief discussion of each of these non-ideal
+We present a brief discussion of each of these non-ideal
 factors for resistors, capacitors, and operational amplifiers
 (op-amps), and show how they each individually affect the
-behavior of a circuit model. We present a model of a Sallen-Key
-lowpass filter circuit that incorporates all of the non-ideal factors
-together.
+behavior of a circuit model. We present a models of Sallen-Key
+lowpass filter, and diode clipper circuits that incorporates all
+of the non-ideal factors together.
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
 %
 Audio effect circuits and circuit models are a vital part
 of modern audio signal processing. Circuit modelling in
-particular has seen a risein popularity in recent,
+particular has seen a rise in popularity in recent years,
 particularly in the form of audio plugin-ins that model
 circuits from vintage audio effects, amplifiers, and synthesizers.
 Many engineers and musicians prefer these software emulations over
 the original hardware units because of the lower cost, portability,
 and convenience. However, some users have noticed that the software
-emulations do not recreate the unit-to-unit variation in these effects.
+emulations do not model the unit-to-unit variation in these effects.
 For example, if two engineers buy the same hardware compressor unit,
 the resulting hardware units will sound similar, but not identical,
 due to minor variations in the components that comprise each unit.
-Modern circuit models do not attempt to recreate this unit-to-unit
+Modern circuit models do not attempt to emulate this unit-to-unit
 variation, nor do they consider the non-ideal conditions that create
 this variation.
 \newline\newline
@@ -181,7 +181,7 @@ using nodal analysis and wave digital filters as examples.
 %
 All resistors and capacitors are labelled with both a
 component value (e.g. $1 k\Omega$ resistor, $1 \mu F$
-capacitor), and a tolerance rating (i.e. $\pm 5\%$), as
+capacitor), and a tolerance rating (e.g. $\pm 5\%$), as
 shown in \cref{ResistorLabel}. We propose adjusting the
 component values used in a circuit model to a random
 value within the tolerance range of the component.
@@ -195,9 +195,9 @@ For example, if a
 manufacturer sells resistors at $\pm 5\%$ and $\pm 10\%$ tolerance
 the $\pm 10\%$ components will be distributed in a sort of ``truncated
 Gaussian'' distribution, comprised of the original Gaussian
-distribution truncated between 5 and 10 \% (see \cref{trunc_guass}).
+distribution truncated between 5 and 10\% (see \cref{trunc_guass}).
 To show how component tolerances can affect the behavior of an audio
-effect circuit, \cref{tol_LPF} shows the frequency response of 1000
+effect circuit, \cref{tol_LPF} shows the frequency responses of 1000
 Sallen-Key lowpass filters made with components that have $\pm 10\%$
 tolerance ratings.
 %
@@ -275,7 +275,7 @@ expected lifetime is approximately:
     \label{eq:cap-fail}
 \end{equation}
 %
-While there is some fluctuation un actual failure times, capacitor
+While there is some fluctuation in actual failure times, capacitor
 lifetime tends to follow a normal distribution \cite{cap-fail}. When
 a capacitor fails, its capacitance tends to increase to at least an
 order of magnitude above its ideal value, and tends to have a large
@@ -333,13 +333,13 @@ The operating temperature at which a circuit is used can also have an
 affect on the circuit's overall sound. In particular, op-amps tend to
 have a relatively strong temperature dependence, particularly in relation
 to the op-amp's bandwidth. \cite{opamp-temp} describes a NASA study
-examining the behavior of the Analog Devices OP181 op-amp, though
-their results can be scaled to apply to most other op-amp's with
-similar construction. \Cref{NASA} shows the frequency response of the
+examining the temperature dependent behavior of the Analog Devices OP181
+op-amp, though their results can be scaled to apply to most other op-amp's
+with similar construction. \Cref{NASA} shows the frequency response of the
 OP181 at various temperatures.
 \newline\newline
-We propose scaling the data from \cite{opamp-temp} to apply to widely
-used Texas Instruments LM741 op-amp, and modelling the frequency response
+We propose scaling the data from \cite{opamp-temp} to apply to the widely
+used Texas Instruments LM741 op-amp, and model the frequency response
 using a first-order lowpass filter, with cutoff frequency $f_c$ dependent
 on the operating temperature. We determined that the relationship between
 temperature and $f_c$ follows the form of a ``binding'' function, as follows:
@@ -394,13 +394,28 @@ where
 frequency responses of the Sallen-Key lowpass filter circuit for
 each of the non-ideal factors discussed above.
 
-\subsection{WDF Circuit} \label{sec:WDF}
+\subsection{WDF Diode Clipper} \label{sec:WDF}
 %
-Some circuit, tbd\dots
+\begin{figure}[h]
+    \center
+    \includegraphics[width=3in]{Pics/diodeclipper.png}
+    \caption{\label{diodeclipper}{\it Diode clipper circuit.}}
+\end{figure}
+%
+As a second example circuit, we chose to implement a diode clipper using
+the Wave Digital Filter (WDF) formulation. Originally, developed by
+Alfred Fettweis \cite{Fettweis} in the 1980's, and expanded on in recent
+years by Yeh \cite{YehWDF}, Werner \cite{KurtThesis}, and others
+\cite{JJWDF,WDF2}, WDFs provide a particularly well suited circuit
+modelling method for incorporating non-ideal factors, due to their highly
+modular nature. We implemented a wave digital emulation of a simple diode
+clipper circuit (see \cref{diodeclipper}), based on the formulations
+derived in \cite{YehDiode,KurtDiode}, including all non-ideal factors
+described above.
 
 \subsection{Software Implementation} \label{sec:soft-impl}
 %
-The Sallen-Key lowpass model and (other circuit) have been implemented
+The Sallen-Key lowpass filter and diode clipper models have been implemented
 as audio plugins (VST/AU) using the JUCE/C++ framework. In each plugin,
 the user can control various parameters related to the component
 tolerances, age, and temperature, to see how these factors effect the
@@ -428,7 +443,8 @@ sounds slightly unique.
 
 \section{Acknowledgments}
 %
-The author would like to thank Andrew Garver for inspiration, and the
+The author would like to thank Andrew Garver for inspiration, Jingjie Zhang
+and Kurt Werner for providing sound and patient advice regarding WDFs, and the
 GASP working group for their gratious support and vital feedback.
 
 %\newpage

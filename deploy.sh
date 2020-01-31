@@ -7,7 +7,7 @@ do
     scp $f jatin@ccrma-gate.stanford.edu:~/Library/Web/Bad-Circuit-Modelling/
 done
 
-Copy papers
+# Copy papers
 for f in Paper/*.pdf
 do
     echo "Copying $f"
