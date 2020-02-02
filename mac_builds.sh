@@ -6,7 +6,15 @@ do
         then
         name="${Dir:2}"
 
+	echo "Building $name..."
+	cd $Dir/Plugin
+	$PROJUCER --resave $name.jucer
+	cd Builds/MacOSX
+	xcodebuild -project $name.xcodeproj/ clean
+	xcodebuild -project $name.xcodeproj/ -configuration Release | xcpretty -s -f `xcpretty-travis-formatter`
+
         echo "Copying $name ..."
+	cd ../../../../
         mkdir Bin/$name/Mac
         cp -R "$Dir/Plugin/Builds/MacOSX/build/Release/$name.app" Bin/$name/Mac # standalone
         cp -R "$Dir/Plugin/Builds/MacOSX/build/Release/$name.vst" Bin/$name/Mac # VST
