@@ -9,7 +9,7 @@ class DiodeClipperViz : public Component,
                         private Timer
 {
 public:
-    DiodeClipperViz (DiodeClipperCircuit& circuitLeft, DiodeClipperCircuit& circuitRight, float& gainParam);
+    DiodeClipperViz (DiodeClipperCircuit& circuitLeft, DiodeClipperCircuit& circuitRight, float& gainParam, float& outParam);
 
     void timerCallback() override;
 
@@ -29,6 +29,7 @@ private:
     DiodeClipperCircuit& circuitL;
     DiodeClipperCircuit& circuitR;
     float& gainParam;
+    float& outParam;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DiodeClipperViz)
 };

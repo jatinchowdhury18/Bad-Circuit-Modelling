@@ -62,11 +62,13 @@ public:
 
     DiodeClipperCircuit& getCircuit (int ind) { return diodeCircuit[ind]; }
     float& getGainParam() { return curGain; }
+    float& getOutParam() { return curOutGain; }
 
 private:
     // general params
     float* freqParam = nullptr;
     float* gainDBParam = nullptr;
+    float* outDBParam = nullptr;
 
     // components
     float* cTolParam;
@@ -76,6 +78,10 @@ private:
 
     float curGain = 1.0f;
     float oldGain = 1.0f;
+
+    float curOutGain = 1.0f;
+    float oldOutGain = 1.0f;
+
     OwnedArray<AudioProcessorValueTreeState> vts;
     static AudioProcessorValueTreeState::ParameterLayout createParameterLayout (int type);
 

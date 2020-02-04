@@ -4,7 +4,7 @@ template <class Processor>
 DiodeClipperEditor<Processor>::DiodeClipperEditor (Processor& p) :
     AudioProcessorEditor (&p),
     processor (p),
-    viz (p.getCircuit (0), p.getCircuit (1), p.getGainParam())
+    viz (p.getCircuit (0), p.getCircuit (1), p.getGainParam(), p.getOutParam())
 {
     auto& states = p.getVTS();
 

@@ -2,18 +2,21 @@
 
 namespace
 {
-    constexpr int size = 44100 / 32;
+    constexpr int size = 44100 / 30;
     constexpr float fs = 44100.0f;
     constexpr float freq = 100.0f;
     constexpr float gain = 1.0f;
 }
 
-DiodeClipperViz::DiodeClipperViz (DiodeClipperCircuit& circuitLeft,DiodeClipperCircuit& circuitRight, float& gainParam) :
+DiodeClipperViz::DiodeClipperViz (DiodeClipperCircuit& circuitLeft,DiodeClipperCircuit& circuitRight,
+                                  float& gainParam, float& outParam) :
     circuitL (circuitLeft),
     circuitR (circuitRight),
-    gainParam (gainParam)
+    gainParam (gainParam),
+    outParam (outParam)
 {
-    
+    startTimerHz (25);
+
     dryBuffer.setSize (2, size);
 
     for (int ch = 0; ch < 2; ++ch)
@@ -41,7 +44,7 @@ void DiodeClipperViz::updateCurve()
 
         auto* buffer = wetBuffer.getWritePointer (0);
         for (int n = 0; n < size; ++n)
-            buffer[n] = diodeClipper[ch].processSample (gainParam * buffer[n]);
+            buffer[n] = diodeClipper[ch].processSample (gainParam * buffer[n]) * outParam;
     }
 
     const auto yFactor = 0.7f;

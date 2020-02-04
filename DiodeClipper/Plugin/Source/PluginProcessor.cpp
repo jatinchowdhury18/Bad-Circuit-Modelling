@@ -28,8 +28,9 @@ DiodeClipperAudioProcessor::DiodeClipperAudioProcessor()
     oversampling (2, 1, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR)
 {
     vts.add (std::make_unique<AudioProcessorValueTreeState> (*this, nullptr, Identifier ("CircuitParameters"), createParameterLayout (0)));
-    freqParam = vts[0]->getRawParameterValue ("cutoff_Hz");
+    freqParam   = vts[0]->getRawParameterValue ("cutoff_Hz");
     gainDBParam = vts[0]->getRawParameterValue ("gain_dB");
+    outDBParam  = vts[0]->getRawParameterValue ("out_dB");
 
     vts.add (std::make_unique<AudioProcessorValueTreeState> (*this, nullptr, Identifier ("ComponentsParameters"), createParameterLayout (1)));
     cTolParam = vts[1]->getRawParameterValue ("c_tol");
@@ -53,6 +54,7 @@ AudioProcessorValueTreeState::ParameterLayout DiodeClipperAudioProcessor::create
 
         params.push_back (std::make_unique<AudioParameterFloat> ("cutoff_Hz", "Cutoff", freqRange, 1000.0f));
         params.push_back (std::make_unique<AudioParameterFloat> ("gain_dB", "Gain", 0.0f, 30.0f, 0.0f));
+        params.push_back (std::make_unique<AudioParameterFloat> ("out_dB", "Output", -30.0f, 30.0f, 0.0f));
     }
     else if (type == 1) // component parameters
     {
@@ -143,6 +145,9 @@ void DiodeClipperAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 
     curGain = Decibels::decibelsToGain (*gainDBParam);
     oldGain = curGain;
+
+    curOutGain = Decibels::decibelsToGain (*outDBParam);
+    oldOutGain = curOutGain;
 }
 
 void DiodeClipperAudioProcessor::releaseResources()
@@ -186,6 +191,7 @@ void DiodeClipperAudioProcessor::updateParams()
     }
 
     curGain = Decibels::decibelsToGain (*gainDBParam);
+    curOutGain = Decibels::decibelsToGain (*outDBParam);
 }
 
 void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
@@ -194,6 +200,7 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
     updateParams();
 
+    // Input gain stage
     if (oldGain == curGain)
     {
         buffer.applyGain (curGain);
@@ -204,6 +211,7 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
         oldGain = curGain;
     }
 
+    // WDF
     dsp::AudioBlock<float> block (buffer);
     dsp::AudioBlock<float> osBlock (buffer);
 
@@ -224,6 +232,17 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         rmsLevel[ch] = buffer.getRMSLevel (ch, 0, buffer.getNumSamples());
+
+    // Output gain stage
+    if (oldOutGain == curOutGain)
+    {
+        buffer.applyGain (curOutGain);
+    }
+    else
+    {
+        buffer.applyGainRamp (0, buffer.getNumSamples(), oldOutGain, curOutGain);
+        oldOutGain = curOutGain;
+    }
 }
 
 //==============================================================================
@@ -257,9 +276,12 @@ void DiodeClipperAudioProcessor::setStateInformation (const void* data, int size
     {
         auto states = ValueTree::fromXml (*xmlState);
 
-        for (int i = 0; i < states.getNumChildren(); ++i)
+        for (int i = 0; i < states.getNumChildren() && i < vts.size(); ++i)
         {
             auto state = states.getChild (i);
+
+            if (! state.isValid() || ! vts[i]->state.isValid())
+                continue;
 
             if (state.getType() == vts[i]->state.getType())
                 vts[i]->replaceState (state);
