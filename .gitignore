@@ -20,6 +20,7 @@ JuceLibraryCode
 __pycache__
 *.asd
 *.mp4
+Presentation
 
 # Tex artifacts
 *.synctex.gz

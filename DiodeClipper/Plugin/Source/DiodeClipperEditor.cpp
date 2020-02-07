@@ -4,7 +4,7 @@ template <class Processor>
 DiodeClipperEditor<Processor>::DiodeClipperEditor (Processor& p) :
     AudioProcessorEditor (&p),
     processor (p),
-    viz (p.getCircuit (0), p.getCircuit (1), p.getGainParam(), p.getOutParam())
+    viz (p.getCircuit (0), p.getCircuit (1), p.getGainParam(), p.getOutParam(), p.getLeakRPar())
 {
     auto& states = p.getVTS();
 
@@ -15,7 +15,7 @@ DiodeClipperEditor<Processor>::DiodeClipperEditor (Processor& p) :
     for (auto* k : knobs)
         addAndMakeVisible (k);
 
-    setSize (400, 250 + 100 * knobs.size());
+    setSize (500, 250 + 100 * knobs.size());
 }
 
 template <class Processor>

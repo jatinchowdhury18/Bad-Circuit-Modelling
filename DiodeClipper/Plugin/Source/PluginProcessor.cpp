@@ -37,6 +37,7 @@ DiodeClipperAudioProcessor::DiodeClipperAudioProcessor()
     cAgeParam = vts[1]->getRawParameterValue ("c_age_yrs");
     cTempParam = vts[1]->getRawParameterValue ("c_temp_C");
     cCapFailParam = vts[1]->getRawParameterValue ("c_capfail");
+    cCapLeakParam = vts[1]->getRawParameterValue ("c_capleak_");
 }
 
 DiodeClipperAudioProcessor::~DiodeClipperAudioProcessor()
@@ -66,7 +67,8 @@ AudioProcessorValueTreeState::ParameterLayout DiodeClipperAudioProcessor::create
         ageRange.setSkewForCentre (50.0f);
 
         params.push_back (std::make_unique<AudioParameterFloat> ("c_age_yrs", "Age", ageRange, 0.0f));
-        params.push_back (std::make_unique<AudioParameterFloat> ("c_temp_C", "Operating Temp", -200.0f, 200.0f, 25.0f));
+        params.push_back (std::make_unique<AudioParameterFloat> ("c_temp_C", "Temp.", -200.0f, 200.0f, 25.0f));
+        params.push_back (std::make_unique<AudioParameterFloat> ("c_capleak_", "Cap Leak", 0.0f, 1.0f, 0.0f));
         params.push_back (std::make_unique<AudioParameterBool>  ("c_capfail", "Cap Fail", true));
     }
 
@@ -181,13 +183,15 @@ bool DiodeClipperAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 
 void DiodeClipperAudioProcessor::updateParams()
 {
+    leakRPar = 100.0e6 * pow (1.0 - *cCapLeakParam, 0.5) + 1.2e3;
+
     for (int ch = 0; ch < 2; ++ch)
     {
         diodeCircuit[ch].setTolerance ((int) *cTolParam);
         diodeCircuit[ch].setAgeCharacteristics (*cAgeParam, *cTempParam + 273.0f, (bool) *cCapFailParam);
         diodeCircuit[ch].setFreq (*freqParam);
 
-        diodeClipper[ch].setCircuitElements (diodeCircuit[ch].getR(), diodeCircuit[ch].getC (rmsLevel[ch]));
+        diodeClipper[ch].setCircuitElements (diodeCircuit[ch].getR(), diodeCircuit[ch].getC (rmsLevel[ch]), leakRPar);
     }
 
     curGain = Decibels::decibelsToGain (*gainDBParam);

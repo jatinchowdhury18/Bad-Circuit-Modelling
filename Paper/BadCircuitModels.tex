@@ -151,9 +151,11 @@ existing modelling methods can be expanded to include this behavior.
 In \S\ref{sec:tol} we examine the effects of component tolerances of resistors
 and capacitors. \S\ref{sec:age} discusses the effects of aging capacitors,
 resistors, and op-amps. Temperature considerations for
-op-amps are discussed in \S\ref{sec:temp}. Finally, in \S\ref{sec:impl} we
-show how the above factors can be implemented into existing circuit models
-using nodal analysis and wave digital filters as examples.
+op-amps are discussed in \S\ref{sec:temp}. In \S\ref{sec:capleak}, we
+discuss modelling capacitor leakage by including a parallel resistor.
+Finally, in \S\ref{sec:impl} we show how the above factors can be
+implemented into existing circuit models using nodal analysis and wave
+digital filters as examples.
 
 \section{Component Tolerances} \label{sec:tol}
 %
@@ -362,6 +364,35 @@ temperatures.
     \caption{\label{sallenkey}{\it Sallen-Key LPF circuit.}}
 \end{figure}
 %
+\section{Capacitor Leakage} \label{sec:capleak}
+%
+\begin{figure}[h]
+    \center
+    \includegraphics[width=3in]{Pics/capleak.png}
+    \caption{\label{capleak}{\it Modelling capacitor leakage,
+    dissipation, and soakage using circuit elements. Adapted from
+    \cite{capleak}.}}
+\end{figure}
+%
+Beyond imperfections due to temperature, aging, and tolerance,
+capacitors tend to exhibit ``leakage'', which can be modelled
+as a resistor in parallel with the capacitor ($RL$ in \cref{capleak}).
+Electrolytic capacitors of the type discussed here, typically exhibit
+a leakage current of $\sim 20 nA \text{ per } \mu F$, although that
+value can increase with the age of the component. In our wave digital
+filter diode clipper example we introduce a leaky capacitor using the
+model described above, however we chose not to include capacitor leakage
+in our nodal analysis example, since including this component would alter
+the structure of the circuit, requiring nodal analysis to be entirely
+recomputed.
+\newline\newline
+Note that other capacitor imperfections can be similarly modelled using
+traditional circuit elements, including dissipation ($RS$ in
+\cref{capleak}), and soakage ($L$); not to mention similar resistor
+imperfections including internal capacitance and inductance \cite{capleak}.
+These factors are ignored in this writing due to their relative
+insignificance at audio frequencies.
+
 \section{Implementation} \label{sec:impl}
 %
 \subsection{Sallen-Key Lowpass Filter} \label{sec:SK-LPF}

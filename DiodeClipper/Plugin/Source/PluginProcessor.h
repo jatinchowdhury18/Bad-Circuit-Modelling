@@ -63,6 +63,7 @@ public:
     DiodeClipperCircuit& getCircuit (int ind) { return diodeCircuit[ind]; }
     float& getGainParam() { return curGain; }
     float& getOutParam() { return curOutGain; }
+    double& getLeakRPar() { return leakRPar; }
 
 private:
     // general params
@@ -74,6 +75,7 @@ private:
     float* cTolParam;
     float* cAgeParam;
     float* cTempParam;
+    float* cCapLeakParam;
     float* cCapFailParam;
 
     float curGain = 1.0f;
@@ -81,6 +83,8 @@ private:
 
     float curOutGain = 1.0f;
     float oldOutGain = 1.0f;
+
+    double leakRPar = 100.0e6;
 
     OwnedArray<AudioProcessorValueTreeState> vts;
     static AudioProcessorValueTreeState::ParameterLayout createParameterLayout (int type);

@@ -9,11 +9,12 @@ namespace
 }
 
 DiodeClipperViz::DiodeClipperViz (DiodeClipperCircuit& circuitLeft,DiodeClipperCircuit& circuitRight,
-                                  float& gainParam, float& outParam) :
+                                  float& gainParam, float& outParam, double& leakRPar) :
     circuitL (circuitLeft),
     circuitR (circuitRight),
     gainParam (gainParam),
-    outParam (outParam)
+    outParam (outParam),
+    leakRPar (leakRPar)
 {
     startTimerHz (25);
 
@@ -40,7 +41,7 @@ void DiodeClipperViz::updateCurve()
         auto& circuit = ch == 0 ? circuitL : circuitR;
 
         diodeClipper[ch].reset ((double) fs, 1000.0);
-        diodeClipper[ch].setCircuitElements (circuit.getR(), circuit.getC (gain));
+        diodeClipper[ch].setCircuitElements (circuit.getR(), circuit.getC (gain), leakRPar);
 
         auto* buffer = wetBuffer.getWritePointer (0);
         for (int n = 0; n < size; ++n)
