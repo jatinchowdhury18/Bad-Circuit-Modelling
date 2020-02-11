@@ -1,16 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% File:     dafx_19.sty          (LaTeX Document style option "dafx_19")
+% File:     dafx_20.sty          (LaTeX Document style option "dafx_20")
 %
 % Usage:    \documentclass{article}
-%                       \usepackage{dafx_19}
+%                       \usepackage{dafx_20}
 %
 %           Or for LaTeX 2.09:
-% Usage:    \documentstyle[...,dafx_19,...]{article}
+% Usage:    \documentstyle[...,dafx_20,...]{article}
 %
 % Purpose:
 %
-% Style file for Conference on Digital Audio Effects (DAFx-19).
+% Style file for Conference on Digital Audio Effects (DAFx-20).
 % Modified from waspaa99.sty
 % Features:
 %    - correct page size (175mm x 226mm)
@@ -46,7 +46,7 @@
 %    common support. For distinct support acknowledgments,
 %    use \sthanks{xx} after each name.
 %
-%                 \documentstyle[dafx_19]{article}
+%                 \documentstyle[dafx_20]{article}
 %                 \title{Title of the paper}
 %                 \affiliation{George P. Burdell and John Q. Professor
 %                       \thanks{This work was supported by...}}
@@ -69,7 +69,7 @@
 %    one support acknowledgment. For distinct support acknowledgments,
 %    use \sthanks{xx} after each name.
 %
-%                 \documentstyle[dafx_19]{article}
+%                 \documentstyle[dafx_20]{article}
 %                 \title{Title of the paper}
 %                 \twoaffiliations{John Doe
 %                       \thanks{This work was supported by...}}
@@ -97,19 +97,21 @@
 %
 % Author:  Stephen Martucci  -- martucci@cdg.nj.nec.com
 % Modifications: Jyri Huopaniemi -- jyri.huopaniemi@research.nokia.com
-%                the Dafx crew -- dafx@sci.univr.it
-%                The DAFx04 crew -- dafx04@na.infn.it
-%                The DAFx06 crew -- dafx06@dafx.ca
-%                The DAFx07 crew -- dafx07@labri.fr
-%                The DAFx08 crew -- dafx08@acousctics.hut.fi
-%		             The DAFx09 crew -- dafx09@como.polimi.it
-%                The DAFx10 crew -- dafx10@iem.at
-%		             The DAFx12 crew -- papers@dafx12.york.ac.uk
-%                The DAFx13 crew -- papers@dafx13.nuim.ie
-%	               The DAFx14 crew -- dafx14@audiolabs-erlangen.de
-%	               The DAFx16 crew -- dafx16@vutbr.cz
-%	             The DAFx17 crew -- dafx17@ed.ac.uk
-%				 The DAFx19 crew -- dafx2019@gmail.com
+% The DaFx00 crew -- dafx@sci.univr.it
+% The DAFx04 crew -- dafx04@na.infn.it
+% The DAFx06 crew -- dafx06@dafx.ca
+% The DAFx07 crew -- dafx07@labri.fr
+% The DAFx08 crew -- dafx08@acousctics.hut.fi
+% The DAFx09 crew -- dafx09@como.polimi.it
+% The DAFx10 crew -- dafx10@iem.at
+% The DAFx12 crew -- papers@dafx12.york.ac.uk
+% The DAFx13 crew -- papers@dafx13.nuim.ie
+% The DAFx14 crew -- dafx14@audiolabs-erlangen.de
+% The DAFx16 crew -- dafx16@vutbr.cz
+% The DAFx17 crew -- dafx17@ed.ac.uk
+% The DAFx18 crew -- dafx2018_papers@ua.pt 
+% The DAFx19 crew -- dafx2019@gmail.com
+% The DAFx20 crew -- dafx2020@gmail.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %change default font to times-roman
@@ -140,19 +142,31 @@
  \if@twocolumn
  \twocolumn[\@maketitle]
  \else \newpage
- \global\@topnum\z@ \@maketitle \fi\@thanks
+ \global\@topnum\z@ \@maketitle \fi
+
+ \permission
+ \@thanks
  \endgroup
  \setcounter{footnote}{0}
  \let\maketitle\relax
  \let\@maketitle\relax
- \gdef\thefootnote{\arabic{footnote}}\gdef\@@savethanks{}%
- \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax}
+ \gdef\thefootnote%
+ {%
+ \arabic{footnote}}%
+ \gdef\@@savethanks{}%
+ \gdef\@thanks{}%
+ \gdef\@author{}%
+ \gdef\@title{}%
+ \let\thanks\relax
+ }
 
-\def\@maketitle{\newpage
+\def\@maketitle{
+ \newpage
  \null
  \vskip 1em
  \begin{center}
-	 {\large \bf \@title \par} \vskip 2em
+	 {\large \bf \@title \par} 
+	 \vskip 2em
 	 {%
 	%\large
 	%\ninept
@@ -162,6 +176,21 @@
  \end{center}
  \par
  \vskip 1.4em}
+ 
+\newcommand{\permission}{
+\begin{figure}[b]
+  \vspace{-.6cm}
+%  \ContinuedFloat
+%\ifx\multipleauth\undefined%
+\ifnum\value{numauth}=1 
+   {\scriptsize{\it Copyright:~\copyright \hspace*{1 pt} 2020 \paperauthorA . This is an open-access article distributed under the terms of the \href{http://creativecommons.org/licenses/by/3.0/}{Creative Commons Attribution 3.0 Unported License}, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.}}
+\else
+  {\scriptsize{\it Copyright:~\copyright \hspace*{1 pt} 2020 \paperauthorA  \hspace*{1 pt} et al. This is an open-access article distributed under the terms of the \href{http://creativecommons.org/licenses/by/3.0/}{Creative Commons Attribution 3.0 Unported License}, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.}}
+\fi
+
+%{\copyright~Copyright notice here}
+%\caption*{}
+\end{figure}}
 
 \def\title#1{\gdef\@title{\MakeUppercase{#1}}}
 \gdef\@title{\uppercase{title of paper}}
@@ -424,11 +453,8 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{-5mm}
-\lhead{}
-% \lhead{\em{\small{Proceedings of the 22$^{\text{\itshape nd}}$ International Conference on Digital Audio Effects (DAFx-19), Birmingham, UK, September 2--6, 2019}}}
+\lhead{\em{\small{Proceedings of the 23$^{\text{\itshape rd}}$ International Conference on Digital Audio Effects (DAFx-20), Vienna, Austria, September 8--12, 2020}}}
 \rhead{}
 \lfoot{}
 \rfoot{}
-% \cfoot{{\vskip 11mm}{\small DAFX-\thepage}}{}
-\cfoot{{\vskip 11mm}{\small \thepage}}{}
-
+\cfoot{{\vskip 11mm}{\small {\rm DAFx.}\thepage}}

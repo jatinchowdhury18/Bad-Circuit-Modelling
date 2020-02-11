@@ -12,7 +12,8 @@
 
 %------------------------------------------------------------------------------------------
 \documentclass[twoside,a4paper]{article}
-\usepackage{dafx_19}
+\usepackage{etoolbox}
+\usepackage{dafx_20}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{euscript}
 \usepackage[latin1]{inputenc}
@@ -24,8 +25,50 @@
 \usepackage{subfig} % or can use subcaption package
 \usepackage{xcolor}
 
+\input glyphtounicode
+\pdfgentounicode=1
+
 \setcounter{page}{1}
 \ninept
+
+% build the list of authors and set the flag \multipleauth to handle the et al. in the copyright note (in DAFx_20.sty)
+%==============================DO NOT MODIFY =======================================
+\newcounter{numauth}\setcounter{numauth}{1}
+\newcounter{listcnt}\setcounter{listcnt}{1}
+\newcommand\authcnt[1]{\ifdefined#1 \stepcounter{numauth} \fi}
+
+\newcommand\addauth[1]{
+\ifdefined#1 
+\stepcounter{listcnt}
+\ifnum \value{listcnt}<\value{numauth}
+\appto\authorslist{, #1}
+\else
+\appto\authorslist{~and~#1}
+\fi
+\fi}
+%======DO NOT MODIFY UNLESS YOUR PAPER HAS MORE THAN 10 AUTHORS========================
+%==we count the authors defined at the beginning of the file (paperauthorA is mandatory and already accounted for)
+\authcnt{\paperauthorB}
+\authcnt{\paperauthorC}
+\authcnt{\paperauthorD}
+\authcnt{\paperauthorE}
+\authcnt{\paperauthorF}
+\authcnt{\paperauthorG}
+\authcnt{\paperauthorH}
+\authcnt{\paperauthorI}
+\authcnt{\paperauthorJ}
+%==we create a list of authors for pdf tagging, for example: paperauthorA, paperauthorB, ... and paperauthorF (last author)
+\def\authorslist{\paperauthorA}
+\addauth{\paperauthorB}
+\addauth{\paperauthorC}
+\addauth{\paperauthorD}
+\addauth{\paperauthorE}
+\addauth{\paperauthorF}
+\addauth{\paperauthorG}
+\addauth{\paperauthorH}
+\addauth{\paperauthorI}
+\addauth{\paperauthorJ}
+%====================================================================================
 
 \usepackage{times}
 % Saves a lot of ouptut space in PDF... after conversion with the distiller
@@ -51,7 +94,7 @@
   ]{hyperref}
   \pdfcompresslevel=9
   \usepackage[pdftex]{graphicx}
-  \usepackage[figure,table]{hypcap}
+%   \usepackage[figure,table]{hypcap}
 \else % compiling with latex
   \usepackage[dvips]{epsfig,graphicx}
   \usepackage[dvips,
@@ -60,8 +103,9 @@
     pdfstartview=XYZ % start with zoom=100% instead of full screen
   ]{hyperref}
   % hyperrefs are active in the pdf file after conversion
-  \usepackage[figure,table]{hypcap}
+  % \usepackage[figure,table]{hypcap}
 \fi
+\usepackage[hypcap=true]{caption}
 
 % My packages
 \usepackage{tikz}
@@ -102,7 +146,7 @@
 \title{\papertitle}
 
 \affiliation{
-\paperauthorA \,}
+\paperauthorA \, }
 {\href{http://ccrma.stanford.edu}{Center for Computer Research in Music and Acoustics} \\ Stanford University \\ Palo Alto, CA \\ {\tt \href{mailto:jatin@ccrma.stanford.edu}{jatin@ccrma.stanford.edu}}}
 
 \begin{document}
@@ -449,9 +493,9 @@ described above.
 The Sallen-Key lowpass filter and diode clipper models have been implemented
 as audio plugins (VST/AU) using the JUCE/C++ framework. In each plugin,
 the user can control various parameters related to the component
-tolerances, age, and temperature, to see how these factors effect the
-overall sound of the circuit model. The plugins and their source code are
-freely available on GitHub
+tolerances, age, and temperature, to hear how these factors effect the
+overall sound of the circuit model, and make real-time comparisons. The
+plugins and their source code are freely available on GitHub
 \footnote{\url{https://github.com/jatinchowdhury18/Bad-Circuit-Modelling}}.
 
 \section{Conclusion} \label{sec:conclusion}
@@ -479,7 +523,7 @@ and Kurt Werner for providing sound and patient advice regarding WDFs, and the
 GASP working group for their gratious support and vital feedback.
 
 %\newpage
-% \nocite{*}
+\nocite{*}
 \bibliographystyle{IEEEbib}
 \bibliography{references}
 
