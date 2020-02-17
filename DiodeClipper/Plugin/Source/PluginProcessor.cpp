@@ -229,7 +229,12 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
         auto* x = osBuffer.getWritePointer (ch);
 
         for (int n = 0; n < osBuffer.getNumSamples(); ++n)
+        {
             x[n] = diodeClipper[ch].processSample (x[n]);
+
+            if (isnan (x[n]))
+                x[n] = 0.0f;
+        }
     }
 
     oversampling.processSamplesDown (block);

@@ -45,7 +45,12 @@ void DiodeClipperViz::updateCurve()
 
         auto* buffer = wetBuffer.getWritePointer (0);
         for (int n = 0; n < size; ++n)
+        {
             buffer[n] = diodeClipper[ch].processSample (gainParam * buffer[n]) * outParam;
+
+            if (isnan (buffer[n]))
+                buffer[n] = 0.0f;
+        }
     }
 
     const auto yFactor = 0.7f;
