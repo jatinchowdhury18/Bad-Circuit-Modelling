@@ -100,7 +100,7 @@ script:
       cd $TRAVIS_BUILD_DIR/
       curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip" -o pluginval.zip
       unzip pluginval
-      pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/MacOSX/build/Release/$PLUGIN.vst3" || exit 1
+      pluginval.app/Contents/MacOS/pluginval --strictness-level 2 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/MacOSX/build/Release/$PLUGIN.vst3" || exit 1
     fi
   - |
     if [[ $TRAVIS_OS_NAME == 'windows' ]]; then
@@ -108,7 +108,7 @@ script:
       cd $TRAVIS_BUILD_DIR/
       powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Windows.zip -OutFile pluginval.zip"
       powershell -Command "Expand-Archive pluginval.zip -DestinationPath ."
-      ./pluginval.exe --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/VisualStudio2017/x64/Debug/VST3/$PLUGIN.vst3"
+      ./pluginval.exe --strictness-level 2 --validate-in-process --validate "$TRAVIS_BUILD_DIR/$PLUGIN/Plugin/Builds/VisualStudio2017/x64/Debug/VST3/$PLUGIN.vst3"
     fi
   # - |
   #   if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
