@@ -232,7 +232,7 @@ void DiodeClipperAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
         {
             x[n] = diodeClipper[ch].processSample (x[n]);
 
-            if (isnan (x[n]))
+            if (std::isnan (x[n]))
                 x[n] = 0.0f;
         }
     }
