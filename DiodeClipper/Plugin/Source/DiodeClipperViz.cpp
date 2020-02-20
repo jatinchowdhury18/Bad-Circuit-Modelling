@@ -48,7 +48,7 @@ void DiodeClipperViz::updateCurve()
         {
             buffer[n] = diodeClipper[ch].processSample (gainParam * buffer[n]) * outParam;
 
-            if (isnan (buffer[n]))
+            if (std::isnan (buffer[n]))
                 buffer[n] = 0.0f;
         }
     }
