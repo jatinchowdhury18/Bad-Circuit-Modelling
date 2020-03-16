@@ -186,9 +186,9 @@ emulations do not model the unit-to-unit variation in these effects.
 For example, if two engineers buy the same hardware compressor unit,
 the resulting hardware units will sound similar, but not identical,
 due to minor variations in the components that comprise each unit.
-Modern circuit models do not attempt to emulate this unit-to-unit
-variation, nor do they consider the non-ideal conditions that create
-this variation.
+With a few minor exceptions, modern circuit models do not attempt to
+emulate this unit-to-unit variation, nor do they consider the non-ideal
+conditions that create this variation.
 \newline\newline
 In this writing, we examine these non-ideal conditions, and show how
 existing modelling methods can be expanded to include this behavior.
@@ -215,14 +215,7 @@ digital filters as examples.
     \includegraphics[width=3in]{../CMTolerance/Pics/tgauss_pdf_better.png}
     \caption{\label{trunc_guass}{\it Probability distribution for the
             value of a $10 k\Omega$ resistor with $\pm 10\%$ tolerance.
-            Note the ``truncated Gaussian'' distribution.}}
-\end{figure}
-%
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{../CMTolerance/Pics/lpf_tgauss_plot.png}
-    \caption{\label{tol_LPF}{\it Frequency response of Sallen-Key lowpass
-            filters made with components with $\pm 10\%$ tolerance.}}
+            Note the ``truncated Gaussian'' shape of the distribution.}}
 \end{figure}
 %
 All resistors and capacitors are labelled with both a
@@ -245,13 +238,41 @@ distribution truncated between 5 and 10\% (see \cref{trunc_guass}).
 To show how component tolerances can affect the behavior of an audio
 effect circuit, \cref{tol_LPF} shows the frequency responses of 1000
 Sallen-Key lowpass filters made with components that have $\pm 10\%$
-tolerance ratings.
-%
+tolerance ratings. To date, only one audio software manufacturer
+(Brainworx) has been known to attempt to model component tolerance in
+their software \cite{BrainWorksTMT}, however their approach uses component
+values drawn from a Gaussian distribution with a variance corresponding
+to the component tolerance.
 %
 \begin{figure}[h]
     \center
+    \includegraphics[width=3in]{../CMTolerance/Pics/lpf_tgauss_plot.png}
+    \caption{\label{tol_LPF}{\it Frequency response of Sallen-Key lowpass
+            filters made with components with $\pm 10\%$ tolerance.}}
+\end{figure}
+%
+\begin{figure}[!htb]
+    \center
     \includegraphics[width=3in]{../CMAging/Pics/r_time.png}
     \caption{\label{res-age}{\it $1 k\Omega$ Resistor aging over time.}}
+\end{figure}
+%
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/r_freq.png}
+    \caption{\label{res-age-freq}{\it Sallen-Key LPF with resistor aging.}}
+\end{figure}
+%
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/cap_time.png}
+    \caption{\label{cap-age}{\it Capacitor aging over time.}}
+\end{figure}
+%
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/cap_freq.png}
+    \caption{\label{cap-age-freq}{\it Sallen-Key LPF with capacitor aging.}}
 \end{figure}
 %
 \section{Component Aging} \label{sec:age}
@@ -279,24 +300,6 @@ years. While the resistance change may seem small, these small changes
 compound over all the resistors in the circuit. \Cref{res-age-freq} shows
 the frequency response of a Sallen-Key lowpass filter with resistor aging,
 again with an operating temperature of 400 K.
-%
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/r_freq.png}
-    \caption{\label{res-age-freq}{\it Sallen-Key LPF with resistor aging.}}
-\end{figure}
-%
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/cap_time.png}
-    \caption{\label{cap-age}{\it Capacitor aging over time.}}
-\end{figure}
-%
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/cap_freq.png}
-    \caption{\label{cap-age-freq}{\it Sallen-Key LPF with capacitor aging.}}
-\end{figure}
 %
 \subsection{Capacitor Aging} \label{sec:cap-age}
 %
@@ -473,7 +476,7 @@ each of the non-ideal factors discussed above.
 %
 \begin{figure}[h]
     \center
-    \includegraphics[width=3in]{Pics/diodeclipper.png}
+    \includegraphics[width=3in,height=1.7in]{Pics/diodeclipper.png}
     \caption{\label{diodeclipper}{\it Diode clipper circuit.}}
 \end{figure}
 %
