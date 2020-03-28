@@ -231,14 +231,14 @@ distribution centered at the ideal component value. The manufacturer
 then extracts the worst components that can still satisfy a certain
 tolerance rating and sells them at that rating \cite{tolerance}.
 For example, if a
-manufacturer sells resistors at $\pm 5\%$ and $\pm 10\%$ tolerance
+manufacturer sells resistors at $\pm 5\%$ and $\pm 10\%$ tolerance,
 the $\pm 10\%$ components will be distributed in a sort of ``truncated
 Gaussian'' distribution, comprised of the original Gaussian
-distribution truncated between 5 and 10\% (see \cref{trunc_guass}).
-To show how component tolerances can affect the behavior of an audio
-effect circuit, \cref{tol_LPF} shows the frequency responses of 1000
-Sallen-Key lowpass filters made with components that have $\pm 10\%$
-tolerance ratings. To date, only one audio software manufacturer
+distribution truncated between 5\% and 10\% (see \cref{trunc_guass}).
+To demonstrate how component tolerances can affect the audible behavior
+of an audio effect circuit, \cref{tol_LPF} shows the frequency responses
+of 1000 Sallen-Key lowpass filters made with components that have
+$\pm 10\%$ tolerance ratings. To date, only one audio software manufacturer
 (Brainworx) has been known to attempt to model component tolerance in
 their software \cite{BrainWorksTMT}, however their approach uses component
 values drawn from a Gaussian distribution with a variance corresponding
@@ -249,30 +249,6 @@ to the component tolerance.
     \includegraphics[width=3in]{../CMTolerance/Pics/lpf_tgauss_plot.png}
     \caption{\label{tol_LPF}{\it Frequency response of Sallen-Key lowpass
             filters made with components with $\pm 10\%$ tolerance.}}
-\end{figure}
-%
-\begin{figure}[!htb]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/r_time.png}
-    \caption{\label{res-age}{\it $1 k\Omega$ Resistor aging over time.}}
-\end{figure}
-%
-\begin{figure}[!htb]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/r_freq.png}
-    \caption{\label{res-age-freq}{\it Sallen-Key LPF with resistor aging.}}
-\end{figure}
-%
-\begin{figure}[!htb]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/cap_time.png}
-    \caption{\label{cap-age}{\it Capacitor aging over time.}}
-\end{figure}
-%
-\begin{figure}[!htb]
-    \center
-    \includegraphics[width=3in]{../CMAging/Pics/cap_freq.png}
-    \caption{\label{cap-age-freq}{\it Sallen-Key LPF with capacitor aging.}}
 \end{figure}
 %
 \section{Component Aging} \label{sec:age}
@@ -301,6 +277,18 @@ compound over all the resistors in the circuit. \Cref{res-age-freq} shows
 the frequency response of a Sallen-Key lowpass filter with resistor aging,
 again with an operating temperature of 400 K.
 %
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/r_time.png}
+    \caption{\label{res-age}{\it $1 k\Omega$ Resistor aging over time.}}
+\end{figure}
+%
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/r_freq.png}
+    \caption{\label{res-age-freq}{\it Sallen-Key LPF with resistor aging.}}
+\end{figure}
+%
 \subsection{Capacitor Aging} \label{sec:cap-age}
 %
 For audio circuits, it is typical to use class II X7R capacitors, due to
@@ -311,6 +299,18 @@ capacitor, the capacitance decreases by $\sim2.5\%$ per decade hour
 capacitor aging over a period of 100 years, and \cref{cap-age-freq} shows
 the frequency response of a Sallen-Key lowpass filter with capacitor
 aging.
+%
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/cap_time.png}
+    \caption{\label{cap-age}{\it Capacitor aging over time.}}
+\end{figure}
+%
+\begin{figure}[!htb]
+    \center
+    \includegraphics[width=3in]{../CMAging/Pics/cap_freq.png}
+    \caption{\label{cap-age-freq}{\it Sallen-Key LPF with capacitor aging.}}
+\end{figure}
 %
 \subsubsection{Capacitor Failure} \label{sec:cap-fail}
 %
@@ -331,18 +331,6 @@ order of magnitude above its ideal value, and tends to have a large
 dependence on the voltage across its terminals, resulting in a much
 greater amount of THD.
 %
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{../OpAmp/Pics/age_noise.png}
-    \caption{\label{opamp-age-noise}{\it Op-amp noise over time.}}
-\end{figure}
-%
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{Pics/dropout.png}
-    \caption{\label{dropout}{\it Dropout nonlinearity.}}
-\end{figure}
-%
 \subsection{Op-Amp Aging} \label{sec:opamp-age}
 %
 As op-amps age, they are subjected to shorts, and large currents across
@@ -357,23 +345,14 @@ shown in \cref{dropout}.
 %
 \begin{figure}[h]
     \center
-    \includegraphics[width=3in]{Pics/NASA.png}
-    \caption{\label{NASA}{\it Op-amp gain vs. frequency at various
-        temperatures. Adapted from \cite{opamp-temp}.}}
+    \includegraphics[width=3in]{../OpAmp/Pics/age_noise.png}
+    \caption{\label{opamp-age-noise}{\it Op-amp noise over time.}}
 \end{figure}
 %
 \begin{figure}[h]
     \center
-    \includegraphics[width=3in]{../OpAmp/Pics/freq_temp_shift.png}
-    \caption{\label{opamp-temp}{\it Cutoff frequency vs. temperature for
-        OP181 and LM741 op-amps, including scaled data.}}
-\end{figure}
-%
-\begin{figure}[h]
-    \center
-    \includegraphics[width=3in]{../OpAmp/Pics/temp_freq_response.png}
-    \caption{\label{opamp-temp-freq}{\it Frequency response of a Sallen-Key
-        LPF with various op-amp temperatures.}}
+    \includegraphics[width=3in]{Pics/dropout.png}
+    \caption{\label{dropout}{\it Dropout nonlinearity.}}
 \end{figure}
 %
 \section{Op-Amp Temperature} \label{sec:temp}
@@ -407,8 +386,23 @@ temperatures.
 %
 \begin{figure}[h]
     \center
-    \includegraphics[width=3in]{../CMTolerance/Pics/sallen-key.png}
-    \caption{\label{sallenkey}{\it Sallen-Key LPF circuit.}}
+    \includegraphics[width=3in]{Pics/NASA.png}
+    \caption{\label{NASA}{\it Op-amp gain vs. frequency at various
+        temperatures. Adapted from \cite{opamp-temp}.}}
+\end{figure}
+%
+\begin{figure}[h]
+    \center
+    \includegraphics[width=3in]{../OpAmp/Pics/freq_temp_shift.png}
+    \caption{\label{opamp-temp}{\it Cutoff frequency vs. temperature for
+        OP181 and LM741 op-amps, including scaled data.}}
+\end{figure}
+%
+\begin{figure}[h]
+    \center
+    \includegraphics[width=3in]{../OpAmp/Pics/temp_freq_response.png}
+    \caption{\label{opamp-temp-freq}{\it Frequency response of a Sallen-Key
+        LPF with various op-amp temperatures.}}
 \end{figure}
 %
 \section{Capacitor Leakage} \label{sec:capleak}
@@ -470,7 +464,17 @@ where
 %
 \Cref{tol_LPF,res-age-freq,cap-age-freq,opamp-temp-freq} show the
 frequency responses of the Sallen-Key lowpass filter circuit for
-each of the non-ideal factors discussed above.
+each of the non-ideal factors discussed above. Note that in each figure,
+the non-ideal factors clearly have some impact on the cutoff frequency
+and Q factor of the resulting filter, thereby proving their importance
+in determining the sonic character of the circuit model.
+%
+\begin{figure}[h]
+    \center
+    \includegraphics[width=3in]{../CMTolerance/Pics/sallen-key.png}
+    \caption{\label{sallenkey}{\it Sallen-Key LPF circuit.}}
+\end{figure}
+%
 
 \subsection{WDF Diode Clipper} \label{sec:WDF}
 %
