@@ -111,8 +111,8 @@
 \usepackage{tikz}
 \usetikzlibrary{dsp,chains}
 \usepackage{tkz-euclide}
-\usetkzobj{all}
 \usepackage{cleveref}
+\usepackage{amsmath}
 
 \usepackage{listings}
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -214,7 +214,7 @@ digital filters as examples.
     \center
     \includegraphics[width=3in]{../CMTolerance/Pics/tgauss_pdf_better.png}
     \caption{\label{trunc_guass}{\it Probability distribution for the
-            value of a $10 k\Omega$ resistor with $\pm 10\%$ tolerance.
+            value of a $1 k\Omega$ resistor with $\pm 10\%$ tolerance.
             Note the ``truncated Gaussian'' shape of the distribution.}}
 \end{figure}
 %
@@ -261,7 +261,7 @@ when examining vintage audio circuits.
 %
 As a resistor grows old, its resistance tends to increase. For a typical
 thin-film resistor, the age dependence is described by the following
-equation \cite{thermal_resistors}:
+equation \cite{thermal_resistors},
 %
 \begin{equation}
     \frac{\Delta R}{R} = (1.51 \times 10^{12})\ 
@@ -317,7 +317,7 @@ aging.
 Capacitor aging alone makes only a minor difference to the overall
 behavior of a circuit, however older circuit tend to have a larger
 issue with capacitor failure. For the class of capacitor considered
-here, the expected lifetime is approximately:
+here, the expected lifetime is approximately \cite{cap-fail}.
 %
 \begin{equation}
     L = (5000 \text{ hours})\ 2^{(373 - T) / 10}
@@ -329,7 +329,7 @@ lifetime tends to follow a normal distribution \cite{cap-fail}. When
 a capacitor fails, its capacitance tends to increase to at least an
 order of magnitude above its ideal value, and tends to have a large
 dependence on the voltage across its terminals, resulting in a much
-greater amount of THD.
+greater amount of THD \cite{cap-fail}.
 %
 \subsection{Op-Amp Aging} \label{sec:opamp-age}
 %
@@ -342,6 +342,18 @@ From our own measurements, we have found that as an op-amp ages and
 approaches failure, it starts to exhibit a distortion characteristic
 similar to the canonical ``dropout'' or ``dead-zone'' static nonlinearity,
 shown in \cref{dropout}.
+\newline\newline
+The noise characteristic of an op-amp can be modelled by adding
+filtered white noise to the signal. The specific noise power and
+frequency characteristics should be determined based on the
+specifications of the particular op-amp being modelled, in particular
+the slew rate. The dead-zone nonlinearity can be modelled using a
+static nonlinear transfer function, for example
+\begin{equation}
+    f(x) = \text{sign} (x) |x|^{\beta}
+\end{equation}
+where $\beta \geq 1$ is a free parameter determining the
+width of the dead zone.
 %
 \begin{figure}[h]
     \center
@@ -370,7 +382,7 @@ We propose scaling the data from \cite{opamp-temp} to apply to the widely
 used Texas Instruments LM741 op-amp, and model the frequency response
 using a first-order lowpass filter, with cutoff frequency $f_c$ dependent
 on the operating temperature. We determined that the relationship between
-temperature and $f_c$ follows the form of a ``binding'' function, as follows:
+temperature and $f_c$ follows the form of a ``binding'' function, as follows,
 %
 \begin{equation}
     f_c(T) = \frac{30.96 T}{T + 290.48}  
@@ -454,7 +466,8 @@ this circuit can be written as
     \label{eq:SKF-transfer}
 \end{equation}
 %
-where
+where the cutoff frequency $f_c$ and ``Quality''
+factor $Q$ are defined as follows.
 %
 \begin{equation}
     f_c = \frac{1}{2\pi RC}, \;\;
@@ -502,7 +515,8 @@ as audio plugins (VST/AU) using the JUCE/C++ framework. In each plugin,
 the user can control various parameters related to the component
 tolerances, age, and temperature, to hear how these factors effect the
 overall sound of the circuit model, and make real-time comparisons. The
-plugins and their source code are freely available on
+plugins and their source code, as well as links to video demonstrations
+of the plugins are available on
 GitHub\footnote{\url{https://github.com/jatinchowdhury18/Bad-Circuit-Modelling}}.
 
 \section{Conclusion} \label{sec:conclusion}
