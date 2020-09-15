@@ -10,6 +10,11 @@ For each non-ideal circuit concept, we present simulation code, an example
 plugin (VST, AU) built with JUCE, and an explanatory article, available
 as either a Jupyter Notebook, or a Medium post.
 
+Builds of each plugin are available for Mac and Windows in the [Bin/](./Bin/) directory.
+Linux users can find builds available on the
+[Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/Bad-Circuit-Modelling),
+courtesy of Konstantin Voinov.
+
 ---
 
 Current non-ideal circuit concepts include:
