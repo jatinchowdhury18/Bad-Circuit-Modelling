@@ -167,7 +167,7 @@ void CmtemperatureAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     ScopedNoDenormals noDenormals;
 
     updateParams();
-    for (int ch = 0; ch < 2; ++ch)
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
         lpf[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     }
